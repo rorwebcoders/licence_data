@@ -1,0 +1,2 @@
+class DuplicateTemp < ApplicationRecord
+end

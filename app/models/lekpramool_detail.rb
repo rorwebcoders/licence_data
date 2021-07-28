@@ -1,0 +1,2 @@
+class LekpramoolDetail < ApplicationRecord
+end

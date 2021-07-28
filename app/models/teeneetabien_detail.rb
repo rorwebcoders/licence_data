@@ -1,0 +1,2 @@
+class TeeneetabienDetail < ApplicationRecord
+end

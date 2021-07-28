@@ -1,0 +1,2 @@
+class TabieninfinityDetail < ApplicationRecord
+end

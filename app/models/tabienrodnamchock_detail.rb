@@ -1,0 +1,2 @@
+class TabienrodnamchockDetail < ApplicationRecord
+end

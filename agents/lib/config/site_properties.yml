@@ -1,0 +1,12 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+#
+# Be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+development:
+  group1_url: ["https://www.tabienrodnamchock.com"]
+  all_models: ["Tabien9Detail", "TabieninfinityDetail","KaitabienDetail", "LekpramoolDetail", "Tabien999Detail", "Tabiend789Detail", "TabienrodnamchockDetail"]
+
+production:
+  group1_url: ["https://www.9tabien.com","https://www.tabieninfinity.com","https://www.tabienrodnamchock.com","https://www.kaitabien.com","https://999tabien.com","https://www.tabiend789.com","https://www.lekpramool.com"]
+  all_models: ["Tabien9Detail", "TabieninfinityDetail", "TeeneetabienDetail"]
