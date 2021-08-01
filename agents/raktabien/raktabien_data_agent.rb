@@ -103,9 +103,9 @@ class RaktabienDatatBuilderAgent
                 $logger.error "Error Occured - #{e.message}"
                 $logger.error e.backtrace
               end
-              break if ind >= 4
+              # break if ind >= 4
             end
-            break
+            # break
           end
         end
         update_status()
