@@ -130,7 +130,7 @@ class DuplicateCheckDatatBuilderAgent
     all_tables = $site_details["all_models"]
     file_name = "License_Data_Report_#{(Date.today).strftime('%d-%m-%Y')}"
     Dir.mkdir("#{File.dirname(__FILE__)}/duplicate_check_data") unless File.directory?("#{File.dirname(__FILE__)}/duplicate_check_data")
-    CSV.open("#{File.dirname(__FILE__)}/duplicate_check_data/#{file_name}", "wb") do |csv|
+    CSV.open("#{File.dirname(__FILE__)}/duplicate_check_data/#{file_name}.csv", "wb") do |csv|
       csv << ['URL', 'Date Created', 'License Group', 'License Number', 'Price', 'Location', 'License Status', 'Color', 'Processing Status', 'Is Duplicate']
       all_tables.each do |each_table|
         table_data = each_table.camelize.constantize.where("date_created > ?", 1.month.ago)
