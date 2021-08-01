@@ -14,7 +14,7 @@ pid_status_english = system("ps -aux | grep lekpramool_data_agent.rb | grep -vq 
 				else
 						$logger.info ("Process started....")
 						#~ system("nohup bundle exec /usr/bin/ruby ../lekpramool_data_agent.rb &")
-						system("nohup bundle exec ruby /var/www/LegalSupportJobs/current/agents/lekpramool/lekpramool_data_agent.rb -e production &")
+						system("nohup bundle exec ruby /home/rorwebcoders/scraper/Shoppee/LicenseData/current/agents/lekpramool/lekpramool_data_agent.rb -e production &")
 				end
 #~ sleep 300
 #~ end

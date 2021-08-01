@@ -132,7 +132,7 @@ class DuplicateCheckDatatBuilderAgent
     CSV.open("#{File.dirname(__FILE__)}/duplicate_check_data/#{file_name}", "wb") do |csv|
       csv << ['URL', 'Date Created', 'License Group', 'License Number', 'Price', 'Location', 'License Status', 'Color', 'Processing Status', 'Is Duplicate']
       all_tables.each do |each_table|
-        table_data = each_table.camelize.constantize.where("date_created < #{Date.today + 31  }")
+        table_data = each_table.camelize.constantize.where("date_created > ?", 1.month.ago)
         table_data.each do |each_data|
           url_temp1 = each_data['url']
           date_created_temp1 = each_data['date_created']

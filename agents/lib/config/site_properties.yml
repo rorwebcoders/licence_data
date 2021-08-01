@@ -5,8 +5,7 @@
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 development:
   group1_url: ["https://www.tabienrodnamchock.com"]
-  all_models: ["Tabien9Detail", "TabieninfinityDetail","KaitabienDetail", "LekpramoolDetail", "Tabien999Detail", "Tabiend789Detail", "TabienrodnamchockDetail"]
+  all_models: ["Tabien9Detail", "TabieninfinityDetail","KaitabienDetail", "LekpramoolDetail", "Tabien999Detail", "Tabiend789Detail", "TabienrodnamchockDetail", "MarkettabienDetail", "RaktabienDetail", "TabienrodvipDetail", "TabienmotorcycleDetail", "TabienchillDetail", "TabienrodpramoolDetail", "BuddytabienDetail", "TabienhotDetail", "BooktabienDetail", "TtabienDetail", "ThetabienvipDetail", "AttabienDetail", "TeeneetabienDetail", "Tabien999Detail"]
 
 production:
-  group1_url: ["https://www.9tabien.com","https://www.tabieninfinity.com","https://www.tabienrodnamchock.com","https://www.kaitabien.com","https://999tabien.com","https://www.tabiend789.com","https://www.lekpramool.com"]
-  all_models: ["Tabien9Detail", "TabieninfinityDetail", "TeeneetabienDetail"]
+  all_models: ["Tabien9Detail", "TabieninfinityDetail", "TabienrodnamchockDetail", "KaitabienDetail", "Tabien999Detail", "Tabiend789Detail", "LekpramoolDetail", "RaktabienDetail", "TeeneetabienDetail"]

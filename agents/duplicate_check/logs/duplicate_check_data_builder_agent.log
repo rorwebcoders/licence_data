@@ -1,8 +1,0 @@
-# Logfile created on 2021-07-28 10:29:43 +0530 by logger.rb/61378
-I, [2021-07-28T10:29:43.585662 #15468]  INFO -- : Mysql connection established
-I, [2021-07-28T11:17:53.758600 #556]  INFO -- : Mysql connection established
-E, [2021-07-28T11:18:00.096918 #556] ERROR -- : Error Occured - uninitialized constant DuplicateCheckDatatBuilderAgent::CSV
-E, [2021-07-28T11:18:00.097187 #556] ERROR -- : ["agents/duplicate_check/duplicate_check_data_agent.rb:132:in `write_date_to_file'", "agents/duplicate_check/duplicate_check_data_agent.rb:81:in `start_processing'", "agents/duplicate_check/duplicate_check_data_agent.rb:186:in `<main>'"]
-I, [2021-07-28T11:18:54.089148 #5456]  INFO -- : Mysql connection established
-I, [2021-07-28T16:08:50.361185 #3640]  INFO -- : Mysql connection established
-I, [2021-07-28T16:11:43.681479 #24780]  INFO -- : Mysql connection established

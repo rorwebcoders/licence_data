@@ -96,15 +96,16 @@ class TabienrodnamchockDatatBuilderAgent
                 exist_data = TabienrodnamchockDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
+                  $logger.info "Processing #{license_number}"
                   results = TabienrodnamchockDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"
                 $logger.error e.backtrace
               end
-              break if ind >= 4
+              # break if ind >= 4
             end
-            break
+            # break
           end
         end
         update_status()

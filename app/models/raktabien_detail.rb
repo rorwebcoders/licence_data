@@ -1,0 +1,2 @@
+class RaktabienDetail < ApplicationRecord
+end

@@ -14,7 +14,7 @@ pid_status_english = system("ps -aux | grep kaitabien_data_agent.rb | grep -vq g
 				else
 						$logger.info ("Process started....")
 						#~ system("nohup bundle exec /usr/bin/ruby ../kaitabien_data_agent.rb &")
-						system("nohup bundle exec ruby /var/www/LegalSupportJobs/current/agents/kaitabien/kaitabien_data_agent.rb -e production &")
+						system("nohup bundle exec ruby /home/rorwebcoders/scraper/Shoppee/LicenseData/current/agents/kaitabien/kaitabien_data_agent.rb -e production &")
 				end
 #~ sleep 300
 #~ end

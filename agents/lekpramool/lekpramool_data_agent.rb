@@ -96,6 +96,7 @@ class LekpramoolDatatBuilderAgent
                 exist_data = LekpramoolDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
+                  $logger.info "Processing #{license_number}"
                   results = LekpramoolDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
                 end
               rescue Exception => e
