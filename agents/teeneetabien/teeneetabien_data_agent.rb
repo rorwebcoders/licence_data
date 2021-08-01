@@ -85,7 +85,7 @@ class TeeneetabienDatatBuilderAgent
               color = details_doc.css('div:contains("ป้ายทะเบียนสี")').text.split('ป้ายทะเบียนสี').last.strip rescue ""
               location = details_doc.css('div:contains("จังหวัด")').text.split('จังหวัด').last.strip rescue ""
               status = details_doc.css('div:contains("สถานะ")').text.split('สถานะ').last.strip rescue ""
-              exist_data = TeeneetabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+              exist_data = TeeneetabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
               if exist_data.count == 0
                 $logger.info "Processing #{license_number}"

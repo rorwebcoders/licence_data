@@ -93,7 +93,7 @@ class Tabiend789DatatBuilderAgent
                   status = "normal"
                 end
 
-                exist_data = Tabiend789Detail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = Tabiend789Detail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
