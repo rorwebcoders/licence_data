@@ -62,4 +62,5 @@ gem 'simple_xlsx_reader'
 gem 'nokogiri'
 gem 'rest-client'
 gem 'time_difference'
+gem 'write_xlsx'
 

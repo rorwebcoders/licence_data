@@ -130,8 +130,16 @@ class DuplicateCheckDatatBuilderAgent
     all_tables = $site_details["all_models"]
     file_name = "License_Data_Report_#{(Date.today).strftime('%d-%m-%Y')}"
     Dir.mkdir("#{File.dirname(__FILE__)}/duplicate_check_data") unless File.directory?("#{File.dirname(__FILE__)}/duplicate_check_data")
-    CSV.open("#{File.dirname(__FILE__)}/duplicate_check_data/#{file_name}.csv", "wb") do |csv|
-      csv << ['URL', 'Date Created', 'License Group', 'License Number', 'Price', 'Location', 'License Status', 'Color', 'Processing Status', 'Is Duplicate']
+    # CSV.open("#{File.dirname(__FILE__)}/duplicate_check_data/#{file_name}.csv", "wb") do |csv|
+      workbook = WriteXLSX.new("#{File.dirname(__FILE__)}/duplicate_check_data/#{file_name}.xlsx")
+        worksheet = workbook.add_worksheet
+        worksheet.set_column('A:J', 20)
+        format = workbook.add_format
+        format.set_bold
+        format.set_align('center')
+      header_arr = ['URL', 'Date Created', 'License Group', 'License Number', 'Price', 'Location', 'License Status', 'Color', 'Processing Status', 'Is Duplicate']
+      worksheet.write(0, 0, header_arr, format)
+      counter_row = 1
       all_tables.each do |each_table|
         table_data = each_table.camelize.constantize.where("date_created > ?", 1.month.ago)
         table_data.each do |each_data|
@@ -145,10 +153,13 @@ class DuplicateCheckDatatBuilderAgent
           color_temp1 = each_data['color']
           processing_status_temp1 = each_data['processing_status']
           is_duplicate_temp1 = each_data['is_duplicate']
-          csv << [url_temp1, date_created_temp1, license_group_temp1, license_number_temp1, price_temp1, location_temp1, license_status_temp1, color_temp1, processing_status_temp1, is_duplicate_temp1]
+          data_arr = [url_temp1, date_created_temp1, license_group_temp1, license_number_temp1, price_temp1, location_temp1, license_status_temp1, color_temp1, processing_status_temp1, is_duplicate_temp1]
+          worksheet.write(counter_row, 0, data_arr)
+          counter_row += 1
         end
       end
-    end
+    # end
+    workbook.close
   end
 end
 
