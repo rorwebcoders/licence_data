@@ -136,7 +136,7 @@ class DuplicateCheckDatatBuilderAgent
       t_license_number = each_data['license_number']
       t_date_created = each_data['date_created']
       t_url = each_data['url']
-      d = DuplicateTemp.where("license_number = '#{t_license_number}' and price_status is null")
+      d = DuplicateTemp.where("license_number = '#{t_license_number}' and price_status is null and date_created = '#{t_date_created}'")
       if d.count > 0
       puts t_license_number
       min_data = d.map {|d| d['price'].gsub(',', '')}.min
