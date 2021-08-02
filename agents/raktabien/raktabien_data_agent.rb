@@ -161,7 +161,7 @@ class RaktabienDatatBuilderAgent
           if results_current.count == 0
             processing_status = "Removed"
             # byebug
-            RaktabienDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status)
+            RaktabienDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
           end
         end
       end

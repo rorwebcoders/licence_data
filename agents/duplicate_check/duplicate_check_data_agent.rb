@@ -77,6 +77,7 @@ class DuplicateCheckDatatBuilderAgent
             puts ActiveRecord::Base.connection.exec_query("update duplicate_temps set is_duplicate = 'no' where  date_created = '#{Date.parse(k).strftime('%Y-%m-%d')}' and is_duplicate is null")
           end
 
+          update_pricing()
           update_main_table()
           write_date_to_file()
           # puts results_csv = ActiveRecord::Base.connection.exec_query("select url,license_number from duplicate_temps where date_created < #{Date.today + 31  }")
@@ -94,6 +95,7 @@ class DuplicateCheckDatatBuilderAgent
   end
 
   def insert_data_to_temp
+    $logger.info "Inserting Data to temp table"
     all_tables = $site_details["all_models"]
     all_tables.each do |each_table|
       table_data = each_table.camelize.constantize.all
@@ -113,6 +115,7 @@ class DuplicateCheckDatatBuilderAgent
   end
 
   def update_main_table
+    $logger.info "Updating main tables"
     all_tables = $site_details["all_models"]
     all_tables.each do |each_table|
       table_data = each_table.camelize.constantize.all
@@ -121,12 +124,38 @@ class DuplicateCheckDatatBuilderAgent
         license_number_temps = each_data['license_number']
         date_created_temps = each_data['date_created']
         temp_data = DuplicateTemp.where("url = '#{url_temps}' and license_number = '#{license_number_temps}' and date_created = '#{date_created_temps}'")
-        each_table.camelize.constantize.where("url = '#{url_temps}' and license_number = '#{license_number_temps}' and date_created = '#{date_created_temps}'").update_all(:is_duplicate => temp_data.first.is_duplicate)
+        each_table.camelize.constantize.where("url = '#{url_temps}' and license_number = '#{license_number_temps}' and date_created = '#{date_created_temps}'").update_all(:is_duplicate => temp_data.first.is_duplicate, :price_status => temp_data.first.price_status)
       end
     end
   end
 
+  def update_pricing()
+    $logger.info "Updating Pricing status"
+    all_data = DuplicateTemp.where("is_duplicate = 'yes'")
+    all_data.each do |each_data|
+      t_license_number = each_data['license_number']
+      t_date_created = each_data['date_created']
+      t_url = each_data['url']
+      d = DuplicateTemp.where("license_number = '#{t_license_number}' and price_status is null")
+      if d.count > 0
+      puts t_license_number
+      min_data = d.map {|d| d['price'].gsub(',', '')}.min
+        cheapest_data = d.select {|d| d['price'].gsub(',', '')}.select {|e| e.price.gsub(',', '') == min_data}.first
+        d.each do |each_d|
+          if(each_d['license_number'] == cheapest_data.license_number && each_d['id'] == cheapest_data.id && each_d['url'] == cheapest_data.url)
+            price_status = 'Cheapest'
+          else
+            price_status = '0'
+          end
+          DuplicateTemp.where("license_number = '#{each_d['license_number']}' and date_created = '#{each_d['date_created']}' and url = '#{each_d['url']}'").update_all(:price_status => price_status)
+        end
+      end
+    end
+    DuplicateTemp.where("is_duplicate = 'no'").update_all(:price_status => '0')
+  end
+
   def write_date_to_file
+    $logger.info "Writing data to file"
     all_tables = $site_details["all_models"]
     file_name = "License_Data_Report_#{(Date.today).strftime('%d-%m-%Y')}"
     Dir.mkdir("#{File.dirname(__FILE__)}/duplicate_check_data") unless File.directory?("#{File.dirname(__FILE__)}/duplicate_check_data")
@@ -137,11 +166,11 @@ class DuplicateCheckDatatBuilderAgent
         format = workbook.add_format
         format.set_bold
         format.set_align('center')
-      header_arr = ['URL', 'Date Created', 'License Group', 'License Number', 'Price', 'Location', 'License Status', 'Color', 'Processing Status', 'Is Duplicate']
+      header_arr = ['URL', 'Date Created', 'License Group', 'License Number', 'Price', 'Location', 'License Status', 'Color', 'Processing Status', 'Is Duplicate', 'Price Status']
       worksheet.write(0, 0, header_arr, format)
       counter_row = 1
       all_tables.each do |each_table|
-        table_data = each_table.camelize.constantize.where("date_created > ?", 1.month.ago).order('date_created DESC')
+        table_data = each_table.camelize.constantize.where("date_created < ?", 2.days.ago).order('date_created DESC')
         table_data.each do |each_data|
           url_temp1 = each_data['url']
           date_created_temp1 = each_data['date_created']
@@ -153,7 +182,8 @@ class DuplicateCheckDatatBuilderAgent
           color_temp1 = each_data['color']
           processing_status_temp1 = each_data['processing_status']
           is_duplicate_temp1 = each_data['is_duplicate']
-          data_arr = [url_temp1, date_created_temp1, license_group_temp1, license_number_temp1, price_temp1, location_temp1, license_status_temp1, color_temp1, processing_status_temp1, is_duplicate_temp1]
+          price_status_temp1 = each_data['price_status']
+          data_arr = [url_temp1, date_created_temp1, license_group_temp1, license_number_temp1, price_temp1, location_temp1, license_status_temp1, color_temp1, processing_status_temp1, is_duplicate_temp1, price_status_temp1]
           worksheet.write(counter_row, 0, data_arr)
           counter_row += 1
         end
