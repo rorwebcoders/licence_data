@@ -141,7 +141,7 @@ class DuplicateCheckDatatBuilderAgent
       worksheet.write(0, 0, header_arr, format)
       counter_row = 1
       all_tables.each do |each_table|
-        table_data = each_table.camelize.constantize.where("date_created > ?", 1.month.ago)
+        table_data = each_table.camelize.constantize.where("date_created > ?", 1.month.ago).order('date_created DESC')
         table_data.each do |each_data|
           url_temp1 = each_data['url']
           date_created_temp1 = each_data['date_created']
