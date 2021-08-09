@@ -1,0 +1,2 @@
+class MarkettabienDetail < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class TabienrodvipDetail < ApplicationRecord
+end
