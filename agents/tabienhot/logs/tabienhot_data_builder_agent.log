@@ -1,2 +1,7 @@
 # Logfile created on 2021-08-13 10:46:46 +0530 by logger.rb/61378
 I, [2021-08-13T10:46:46.687915 #5480]  INFO -- : Mysql connection established
+I, [2021-08-13T11:22:52.966671 #14868]  INFO -- : Mysql connection established
+I, [2021-08-13T11:22:56.418147 #14868]  INFO -- : Processing อสธ
+I, [2021-08-13T11:22:56.478521 #14868]  INFO -- : Processing กกก
+I, [2021-08-13T11:22:56.513897 #14868]  INFO -- : Processing 3กก
+I, [2021-08-13T11:22:56.554152 #14868]  INFO -- : Processing 8กข
