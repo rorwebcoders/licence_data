@@ -77,9 +77,12 @@ class TabienhotDatatBuilderAgent
                 price = ""
                 location = ""
 
-                license_number = each_data.css('div.style28').text.strip() rescue ""
+                license_number = each_data.css('div.style28').to_s.gsub("<br>", "|").split('|').first.text.strip() rescue ""
                 price = each_data.css('div.style29 > span').text.strip() rescue ""
                 location = each_data.css('div.style10').text.strip() rescue ""
+                if location.to_s == ''
+                  location = each_data.css('div.style28 > span').text.strip() rescue ""
+                end
                 status_temp = each_data.css('div.ribbonorder') rescue ""
                 if !status_temp.empty?
                   status = "sold"
