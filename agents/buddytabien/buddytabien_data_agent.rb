@@ -78,9 +78,15 @@ class BuddytabienDatatBuilderAgent
                 location = ""
 
                 license_number = each_data.css("p.tabien").text.strip() rescue ""
+                if license_number.to_s == ''
+                  license_number = each_data.css("p.tabien-front-moto").text.strip() rescue ""
+                end
                 price = each_data.css("p.price").text.strip() rescue ""
                 status = each_data.css("h4").text.strip() rescue ""
                 location = each_data.css('p.bkk').text.strip() rescue ""
+                if location.to_s == ''
+                  location = each_data.css('p.bkk-moto').text.strip() rescue ""
+                end
                 exist_data = BuddytabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
