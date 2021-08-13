@@ -1,0 +1,2 @@
+class BuddytabienDetail < ApplicationRecord
+end

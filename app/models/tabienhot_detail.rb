@@ -1,0 +1,2 @@
+class TabienhotDetail < ApplicationRecord
+end
