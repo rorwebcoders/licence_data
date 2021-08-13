@@ -90,9 +90,9 @@ class BuddytabienDatatBuilderAgent
                 $logger.error "Error Occured - #{e.message}"
                 $logger.error e.backtrace
               end
-              break if ind >= 20
+              # break if ind >= 20
             end
-            break if ind1 >= 2
+            # break if ind1 >= 2
           end
         end
         update_status()
