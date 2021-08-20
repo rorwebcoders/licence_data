@@ -9,4 +9,4 @@ development:
   all_models: ["Tabien9Detail", "TabieninfinityDetail", "TabienrodnamchockDetail", "KaitabienDetail", "Tabien999Detail", "Tabiend789Detail", "LekpramoolDetail", "RaktabienDetail", "TeeneetabienDetail"]
 
 production:
-  all_models: ["Tabien9Detail", "TabieninfinityDetail", "TabienrodnamchockDetail", "KaitabienDetail", "Tabien999Detail", "Tabiend789Detail", "LekpramoolDetail", "RaktabienDetail", "TeeneetabienDetail","TabienrodvipDetail", "MarkettabienDetail", "BuddytabienDetail", "TabienhotDetail"]
+  all_models: ["Tabien9Detail", "TabieninfinityDetail", "TabienrodnamchockDetail", "KaitabienDetail", "Tabien999Detail", "Tabiend789Detail", "LekpramoolDetail", "RaktabienDetail", "TeeneetabienDetail","TabienrodvipDetail", "MarkettabienDetail", "BuddytabienDetail", "TabienhotDetail", "BooktabienDetail", "TtabienDetail", "ThetabienvipDetail", "AttabienDetail", "TabienmotorcycleDetail"]
