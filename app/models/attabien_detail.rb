@@ -1,0 +1,2 @@
+class AttabienDetail < ApplicationRecord
+end

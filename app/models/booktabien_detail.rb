@@ -1,0 +1,2 @@
+class BooktabienDetail < ApplicationRecord
+end

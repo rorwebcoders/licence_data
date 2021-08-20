@@ -1,0 +1,2 @@
+class ThetabienvipDetail < ApplicationRecord
+end

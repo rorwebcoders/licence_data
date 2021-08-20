@@ -1,0 +1,2 @@
+class TabienmotorcycleDetail < ApplicationRecord
+end
