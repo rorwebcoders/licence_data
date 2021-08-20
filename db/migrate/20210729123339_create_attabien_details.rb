@@ -10,6 +10,8 @@ class CreateAttabienDetails < ActiveRecord::Migration[5.2]
     	t.text :license_status
     	t.text :color
     	t.text :processing_status
+      t.text :is_duplicate
+      t.text :price_status
       t.timestamps
     end
   end
