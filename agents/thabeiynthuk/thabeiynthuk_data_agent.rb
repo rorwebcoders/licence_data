@@ -109,7 +109,7 @@ class ThabeiynthukDatatBuilderAgent
               sa.css('span.style10')[0].remove
               end
 
-              number = sa.css('div.style28')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip.gsub("\n","") rescue ""
+              license_number = sa.css('div.style28')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip.gsub("\n","") rescue ""
 
               color = sa.css('table')[0].attr('background') rescue ""
 
