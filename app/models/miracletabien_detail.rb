@@ -1,0 +1,2 @@
+class MiracletabienDetail < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class TabienmongkolDetail < ApplicationRecord
+end
