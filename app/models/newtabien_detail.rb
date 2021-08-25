@@ -1,0 +1,2 @@
+class NewtabienDetail < ApplicationRecord
+end
