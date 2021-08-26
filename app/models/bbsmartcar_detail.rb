@@ -1,0 +1,2 @@
+class BbsmartcarDetail < ApplicationRecord
+end
