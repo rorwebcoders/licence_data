@@ -1,0 +1,2 @@
+class SupertabienDetail < ApplicationRecord
+end
