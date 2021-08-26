@@ -1,0 +1,346 @@
+Microsoft Windows [Version 10.0.19042.985]
+(c) Microsoft Corporation. All rights reserved.
+
+F:\New folder\licence_data>git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   Gemfile
+        modified:   Gemfile.lock
+        modified:   agents/lib/config/database.yml
+        modified:   agents/tabienrodnamchock/tabienrodnamchock_data_agent.rb
+        modified:   config/database.yml
+        modified:   db/schema.rb
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        agents/attabien/logs/
+        agents/bentabien/
+        agents/lekvip/
+        agents/lib/models/bentabien_detail.rb
+        agents/lib/models/lekvip_detail.rb
+        agents/lib/models/newtabien_detail.rb
+        agents/lib/models/tabean_detail.rb
+        agents/lib/models/tabien_detail.rb
+        agents/lib/models/tabiendd_detail.rb
+        agents/lib/models/tabiended_detail.rb
+        agents/lib/models/tartabiensuay_detail.rb
+        agents/newtabien/
+        agents/tabean/
+        agents/tabien/
+        agents/tabiendd/
+        agents/tabiended/
+        agents/tartabiensuay/
+        app/models/bentabien_detail.rb
+        app/models/lekvip_detail.rb
+        app/models/newtabien_detail.rb
+        app/models/tabean_detail.rb
+        app/models/tabien_detail.rb
+        app/models/tabiendd_detail.rb
+        app/models/tabiended_detail.rb
+        app/models/tartabiensuay_detail.rb
+        db/migrate/20210823073048_create_tabean_details.rb
+        db/migrate/20210823145212_create_tartabiensuay_details.rb
+        db/migrate/20210823154637_create_tabiended_details.rb
+        db/migrate/20210824050349_create_newtabien_details.rb
+        db/migrate/20210824062332_create_tabien_details.rb
+        db/migrate/20210824071309_create_tabiendd_details.rb
+        db/migrate/20210824111453_create_bentabien_details.rb
+        db/migrate/20210824124251_create_lekvip_details.rb
+        test/fixtures/bentabien_details.yml
+        test/fixtures/lekvip_details.yml
+        test/fixtures/newtabien_details.yml
+        test/fixtures/tabean_details.yml
+        test/fixtures/tabien_details.yml
+        test/fixtures/tabiendd_details.yml
+        test/fixtures/tabiended_details.yml
+        test/fixtures/tartabiensuay_details.yml
+        test/models/bentabien_detail_test.rb
+        test/models/lekvip_detail_test.rb
+        test/models/newtabien_detail_test.rb
+        test/models/tabean_detail_test.rb
+        test/models/tabien_detail_test.rb
+        test/models/tabiendd_detail_test.rb
+        test/models/tabiended_detail_test.rb
+        test/models/tartabiensuay_detail_test.rb
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+F:\New folder\licence_data>git add agents/lekvip/ agents/lib/models/lekvip_detail.rb agents/lib/models/newtabien_detail.rb agents/lib/models/tabean_detail.rb agents/lib/models/tabien_detail.rb agents/lib/models/tabiendd_detail.rb agents/lib/models/tabiended_detail.rb agents/newtabien/ agents/tabean/ agents/tabien/ agents/tabiendd/ agents/tabiended/ app/models/lekvip_detail.rb app/models/newtabien_detail.rb app/models/tabean_detail.rb app/models/tabien_detail.rb app/models/tabiendd_detail.rb app/models/tabiended_detail.rb db/migrate/20210823073048_create_tabean_details.rb db/migrate/20210823154637_create_tabiended_details.rb db/migrate/20210824050349_create_newtabien_details.rb db/migrate/20210824062332_create_tabien_details.rb db/migrate/20210824071309_create_tabiendd_details.rb db/migrate/20210824124251_create_lekvip_details.rb test/fixtures/lekvip_details.yml test/fixtures/newtabien_details.yml test/fixtures/tabean_details.yml test/fixtures/tabien_details.yml test/fixtures/tabiendd_details.yml test/fixtures/tabiended_details.yml test/models/lekvip_detail_test.rb test/models/newtabien_detail_test.rb test/models/tabean_detail_test.rb test/models/tabien_detail_test.rb test/models/tabiendd_detail_test.rb test/models/tabiended_detail_test.rb
+warning: LF will be replaced by CRLF in agents/lib/models/lekvip_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/newtabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabean_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabiendd_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabiended_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/lekvip_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/newtabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabean_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabiendd_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabiended_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210823073048_create_tabean_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210823154637_create_tabiended_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824050349_create_newtabien_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824062332_create_tabien_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824071309_create_tabiendd_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824124251_create_lekvip_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/lekvip_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/newtabien_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabean_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabien_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabiendd_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabiended_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/lekvip_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/newtabien_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabean_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabien_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabiendd_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabiended_detail_test.rb.
+The file will have its original line endings in your working directory
+
+F:\New folder\licence_data>git commit -m "Added Lekvip, Tabean, Tabiended, Tabiendd, NewTabien " agents/lekvip/ agents/lib/models/lekvip_detail.rb agents/lib/models/newtabien_detail.rb agents/lib/models/tabean_detail.rb agents/lib/models/tabien_detail.rb agents/lib/models/tabiendd_detail.rb agents/lib/models/tabiended_detail.rb agents/newtabien/ agents/tabean/ agents/tabien/ agents/tabiendd/ agents/tabiended/ app/models/lekvip_detail.rb app/models/newtabien_detail.rb app/models/tabean_detail.rb app/models/tabien_detail.rb app/models/tabiendd_detail.rb app/models/tabiended_detail.rb db/migrate/20210823073048_create_tabean_details.rb db/migrate/20210823154637_create_tabiended_details.rb db/migrate/20210824050349_create_newtabien_details.rb db/migrate/20210824062332_create_tabien_details.rb db/migrate/20210824071309_create_tabiendd_details.rb db/migrate/20210824124251_create_lekvip_details.rb test/fixtures/lekvip_details.yml test/fixtures/newtabien_details.yml test/fixtures/tabean_details.yml test/fixtures/tabien_details.yml test/fixtures/tabiendd_details.yml test/fixtures/tabiended_details.yml test/models/lekvip_detail_test.rb test/models/newtabien_detail_test.rb test/models/tabean_detail_test.rb test/models/tabien_detail_test.rb test/models/tabiendd_detail_test.rb test/models/tabiended_detail_test.rb
+warning: LF will be replaced by CRLF in agents/lib/models/lekvip_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/newtabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabean_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabiendd_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in agents/lib/models/tabiended_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/lekvip_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/newtabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabean_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabien_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabiendd_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in app/models/tabiended_detail.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210823073048_create_tabean_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210823154637_create_tabiended_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824050349_create_newtabien_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824062332_create_tabien_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824071309_create_tabiendd_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in db/migrate/20210824124251_create_lekvip_details.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/lekvip_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/newtabien_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabean_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabien_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabiendd_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/fixtures/tabiended_details.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/lekvip_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/newtabien_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabean_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabien_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabiendd_detail_test.rb.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in test/models/tabiended_detail_test.rb.
+The file will have its original line endings in your working directory
+[master 343575d] Added Lekvip, Tabean, Tabiended, Tabiendd, NewTabien
+ 61 files changed, 2178 insertions(+)
+ create mode 100644 agents/lekvip/lekvip_data_agent.rb
+ create mode 100644 agents/lekvip/lekvip_mailer/.DS_Store
+ create mode 100644 agents/lekvip/lekvip_mailer/alert_data_email.html
+ create mode 100644 agents/lekvip/lekvip_monitors/attabien_data_monitor.rb
+ create mode 100644 agents/lekvip/load_configurations.rb
+ create mode 100644 agents/lib/models/lekvip_detail.rb
+ create mode 100644 agents/lib/models/newtabien_detail.rb
+ create mode 100644 agents/lib/models/tabean_detail.rb
+ create mode 100644 agents/lib/models/tabien_detail.rb
+ create mode 100644 agents/lib/models/tabiendd_detail.rb
+ create mode 100644 agents/lib/models/tabiended_detail.rb
+ create mode 100644 agents/newtabien/load_configurations.rb
+ create mode 100644 agents/newtabien/newtabien_data_agent.rb
+ create mode 100644 agents/newtabien/newtabien_mailer/.DS_Store
+ create mode 100644 agents/newtabien/newtabien_mailer/alert_data_email.html
+ create mode 100644 agents/newtabien/newtabien_monitors/newtabien_data_monitor.rb
+ create mode 100644 agents/tabean/load_configurations.rb
+ create mode 100644 agents/tabean/tabean_data_agent.rb
+ create mode 100644 agents/tabean/tabean_mailer/.DS_Store
+ create mode 100644 agents/tabean/tabean_mailer/alert_data_email.html
+ create mode 100644 agents/tabean/tabean_monitors/tabean_data_monitor.rb
+ create mode 100644 agents/tabien/load_configurations.rb
+ create mode 100644 agents/tabien/logs/tabien_data_builder_agent.log
+ create mode 100644 agents/tabien/tabien_data_agent.rb
+ create mode 100644 agents/tabien/tabien_mailer/.DS_Store
+ create mode 100644 agents/tabien/tabien_mailer/alert_data_email.html
+ create mode 100644 agents/tabien/tabien_monitors/attabien_data_monitor.rb
+ create mode 100644 agents/tabiendd/load_configurations.rb
+ create mode 100644 agents/tabiendd/tabiendd_data_agent.rb
+ create mode 100644 agents/tabiendd/tabiendd_mailer/.DS_Store
+ create mode 100644 agents/tabiendd/tabiendd_mailer/alert_data_email.html
+ create mode 100644 agents/tabiendd/tabiendd_monitors/tabiendd_data_monitor.rb
+ create mode 100644 agents/tabiended/load_configurations.rb
+ create mode 100644 agents/tabiended/tabiended_data_agent.rb
+ create mode 100644 agents/tabiended/tabiended_mailer/.DS_Store
+ create mode 100644 agents/tabiended/tabiended_mailer/alert_data_email.html
+ create mode 100644 agents/tabiended/tabiended_monitors/tabiended_data_monitor.rb
+ create mode 100644 app/models/lekvip_detail.rb
+ create mode 100644 app/models/newtabien_detail.rb
+ create mode 100644 app/models/tabean_detail.rb
+ create mode 100644 app/models/tabien_detail.rb
+ create mode 100644 app/models/tabiendd_detail.rb
+ create mode 100644 app/models/tabiended_detail.rb
+ create mode 100644 db/migrate/20210823073048_create_tabean_details.rb
+ create mode 100644 db/migrate/20210823154637_create_tabiended_details.rb
+ create mode 100644 db/migrate/20210824050349_create_newtabien_details.rb
+ create mode 100644 db/migrate/20210824062332_create_tabien_details.rb
+ create mode 100644 db/migrate/20210824071309_create_tabiendd_details.rb
+ create mode 100644 db/migrate/20210824124251_create_lekvip_details.rb
+ create mode 100644 test/fixtures/lekvip_details.yml
+ create mode 100644 test/fixtures/newtabien_details.yml
+ create mode 100644 test/fixtures/tabean_details.yml
+ create mode 100644 test/fixtures/tabien_details.yml
+ create mode 100644 test/fixtures/tabiendd_details.yml
+ create mode 100644 test/fixtures/tabiended_details.yml
+ create mode 100644 test/models/lekvip_detail_test.rb
+ create mode 100644 test/models/newtabien_detail_test.rb
+ create mode 100644 test/models/tabean_detail_test.rb
+ create mode 100644 test/models/tabien_detail_test.rb
+ create mode 100644 test/models/tabiendd_detail_test.rb
+ create mode 100644 test/models/tabiended_detail_test.rb
+
+F:\New folder\licence_data>git push
+info: please complete authentication in your browser...
+To https://github.com/rorwebcoders/licence_data.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/rorwebcoders/licence_data.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+F:\New folder\licence_data>git pull
+remote: Enumerating objects: 53, done.
+remote: Counting objects: 100% (53/53), done.
+remote: Compressing objects: 100% (22/22), done.
+remote: Total 44 (delta 22), reused 43 (delta 21), pack-reused 0
+Unpacking objects: 100% (44/44), 9.14 KiB | 2.00 KiB/s, done.
+From https://github.com/rorwebcoders/licence_data
+   2d52d10..dca032a  master     -> origin/master
+Merge made by the 'recursive' strategy.
+ agents/miracletabien/load_configurations.rb        |  24 ++
+ agents/miracletabien/miracletabien_data_agent.rb   | 310 +++++++++++++++++++++
+ .../miracletabien/miracletabien_mailer/.DS_Store   | Bin 0 -> 6148 bytes
+ .../miracletabien_mailer/alert_data_email.html     |  10 +
+ .../miracletabien_data_monitor.rb                  |  20 ++
+ agents/tabienmongkol/load_configurations.rb        |  24 ++
+ agents/tabienmongkol/tabienmongkol_data_agent.rb   | 272 ++++++++++++++++++
+ .../tabienmongkol/tabienmongkol_mailer/.DS_Store   | Bin 0 -> 6148 bytes
+ .../tabienmongkol_mailer/alert_data_email.html     |  10 +
+ .../tabienmongkol_data_monitor.rb                  |  20 ++
+ agents/thabeiynthuk/load_configurations.rb         |  24 ++
+ agents/thabeiynthuk/thabeiynthuk_data_agent.rb     | 286 +++++++++++++++++++
+ agents/thabeiynthuk/thabeiynthuk_mailer/.DS_Store  | Bin 0 -> 6148 bytes
+ .../thabeiynthuk_mailer/alert_data_email.html      |  10 +
+ .../thabeiynthuk_data_monitor.rb                   |  20 ++
+ app/models/miracletabien_detail.rb                 |   2 +
+ app/models/tabienmongkol_detail.rb                 |   2 +
+ app/models/thabeiynthuk_detail.rb                  |   2 +
+ .../20210823134542_create_miracletabien_details.rb |  18 ++
+ .../20210823134702_create_tabienmongkol_details.rb |  18 ++
+ .../20210823134753_create_thabeiynthuk_details.rb  |   8 +
+ test/fixtures/miracletabien_details.yml            |  11 +
+ test/fixtures/tabienmongkol_details.yml            |  11 +
+ test/fixtures/thabeiynthuk_details.yml             |  11 +
+ test/models/miracletabien_detail_test.rb           |   7 +
+ test/models/tabienmongkol_detail_test.rb           |   7 +
+ test/models/thabeiynthuk_detail_test.rb            |   7 +
+ 27 files changed, 1134 insertions(+)
+ create mode 100644 agents/miracletabien/load_configurations.rb
+ create mode 100644 agents/miracletabien/miracletabien_data_agent.rb
+ create mode 100644 agents/miracletabien/miracletabien_mailer/.DS_Store
+ create mode 100644 agents/miracletabien/miracletabien_mailer/alert_data_email.html
+ create mode 100644 agents/miracletabien/miracletabien_monitors/miracletabien_data_monitor.rb
+ create mode 100644 agents/tabienmongkol/load_configurations.rb
+ create mode 100644 agents/tabienmongkol/tabienmongkol_data_agent.rb
+ create mode 100644 agents/tabienmongkol/tabienmongkol_mailer/.DS_Store
+ create mode 100644 agents/tabienmongkol/tabienmongkol_mailer/alert_data_email.html
+ create mode 100644 agents/tabienmongkol/tabienmongkol_monitors/tabienmongkol_data_monitor.rb
+ create mode 100644 agents/thabeiynthuk/load_configurations.rb
+ create mode 100644 agents/thabeiynthuk/thabeiynthuk_data_agent.rb
+ create mode 100644 agents/thabeiynthuk/thabeiynthuk_mailer/.DS_Store
+ create mode 100644 agents/thabeiynthuk/thabeiynthuk_mailer/alert_data_email.html
+ create mode 100644 agents/thabeiynthuk/thabeiynthuk_monitors/thabeiynthuk_data_monitor.rb
+ create mode 100644 app/models/miracletabien_detail.rb
+ create mode 100644 app/models/tabienmongkol_detail.rb
+ create mode 100644 app/models/thabeiynthuk_detail.rb
+ create mode 100644 db/migrate/20210823134542_create_miracletabien_details.rb
+ create mode 100644 db/migrate/20210823134702_create_tabienmongkol_details.rb
+ create mode 100644 db/migrate/20210823134753_create_thabeiynthuk_details.rb
+ create mode 100644 test/fixtures/miracletabien_details.yml
+ create mode 100644 test/fixtures/tabienmongkol_details.yml
+ create mode 100644 test/fixtures/thabeiynthuk_details.yml
+ create mode 100644 test/models/miracletabien_detail_test.rb
+ create mode 100644 test/models/tabienmongkol_detail_test.rb
+ create mode 100644 test/models/thabeiynthuk_detail_test.rb
+
+F:\New folder\licence_data>git push
+Enumerating objects: 97, done.
+Counting objects: 100% (95/95), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (63/63), done.
+Writing objects: 100% (75/75), 12.30 KiB | 188.00 KiB/s, done.
+Total 75 (delta 36), reused 4 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (36/36), completed with 9 local objects.
+To https://github.com/rorwebcoders/licence_data.git
+   dca032a..25f1a90  master -> master
+
+F:\New folder\licence_data>

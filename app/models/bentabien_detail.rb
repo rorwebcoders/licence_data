@@ -1,0 +1,2 @@
+class BentabienDetail < ApplicationRecord
+end
