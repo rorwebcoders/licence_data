@@ -1,0 +1,2 @@
+class TabiengraphicDetail < ApplicationRecord
+end

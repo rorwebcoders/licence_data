@@ -1,0 +1,2 @@
+class ForcesilltabienDetail < ApplicationRecord
+end

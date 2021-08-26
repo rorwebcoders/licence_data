@@ -1,0 +1,2 @@
+class LekvipDetail < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class ThetabienrodDetail < ApplicationRecord
+end

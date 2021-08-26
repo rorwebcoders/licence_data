@@ -1,0 +1,2 @@
+class TabienddDetail < ApplicationRecord
+end

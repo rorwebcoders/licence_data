@@ -1,0 +1,2 @@
+class TartabiensuayDetail < ApplicationRecord
+end
