@@ -79,14 +79,18 @@ class BentabienDatatBuilderAgent
                 status = ""
                 price = ""
                 location = ""
-            
+
+              if each_data.css('div.plate_text').to_s.include?"<br>"
+                license_number = each_data.css('div.plate_text').css('span').map{|e| e.text.strip}.join(" ") rescue ""
+              else  
                 license_number = each_data.css('div.plate_text').text.strip() rescue ""
+              end
                 price = each_data.css('div.plate_box_price').text.split('*').first.strip() rescue ""
                 link = each_data.attr('href')
                 uri = URI.escape(link)
                 doc2 = Nokogiri::HTML(RestClient.get(uri).body)
                 
-                location = doc2.css('table.table.table-borderless.table-striped.pt-det').css('tr:contains("จังหวัด")').css('td')[1].text rescue ""
+                location = doc2.css('table.table.table-borderless.table-striped.pt-det').css('tr:contains("จังหวัด")').css('td')[1].text.strip rescue ""
                 
                 exist_data = BentabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                
