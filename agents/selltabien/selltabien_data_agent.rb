@@ -61,53 +61,56 @@ class SelltabienDatatBuilderAgent
   def start_processing
     begin
       if $db_connection_established
-        urls = ["https://selltabien.com/"]
-        
-          browser = Watir::Browser.new
-          browser.goto("https://selltabien.com/")
-          sleep(10)
-          date_created = ((Date.today)).strftime('%Y-%m-%d')
-                  
+        Headless.ly do
+          urls = ["https://selltabien.com/"]
+            # Selenium::WebDriver::Firefox::Service.driver_path = "C:/GeckoDriver/geckodriver.exe"
+            Selenium::WebDriver::Firefox::Service.driver_path = "/usr/local/bin/geckodriver" # need to specify driver path while running script in cron
+            browser = Watir::Browser.new :firefox
+            browser.goto("https://selltabien.com/")
+            sleep(10)
+            date_created = ((Date.today)).strftime('%Y-%m-%d')
+                    
 
-          listings = browser.elements(:xpath => "//div[@class='container tabien_container']")
-          listings.each_with_index do |each_data, ind|  
-          sleep(5)
-          puts license_group = each_data.h2(:class =>"legend_title").text.strip 
-          listings_1 = each_data.ul(:class => 'tabien-list').lis
-          
-          listings_1.each_with_index do |each_list, ind1|                       
+            listings = browser.elements(:xpath => "//div[@class='container tabien_container']")
+            listings.each_with_index do |each_data, ind|  
+            sleep(5)
+            puts license_group = each_data.h2(:class =>"legend_title").text.strip 
+            listings_1 = each_data.ul(:class => 'tabien-list').lis
             
-                begin
-                  sleep(2)
-                if !each_list.html.include?"cover_status"
-                  sleep(2)     
-                  info = each_list.div(:class=>"click-to-modal").click
-                  sleep(1)
-                  doc = Nokogiri::HTML(browser.html)
-                puts  license_number = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_text").text.strip.split(":").last rescue ""
+            listings_1.each_with_index do |each_list, ind1|                       
+              
+                  begin
+                    sleep(2)
+                    if !each_list.html.include?"cover_status"
+                      sleep(2)     
+                      info = each_list.div(:class=>"click-to-modal").click
+                      sleep(1)
+                      doc = Nokogiri::HTML(browser.html)
+                      puts  license_number = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_text").text.strip.split(":").last rescue ""
 
-                  price = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_price").text.strip.split(":").last rescue ""
-                  location = doc.css("table.table.table-tabien-detail").css('td')[2].text.strip.split(":").last rescue ""
-                  status = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_status").text.strip.split(":").last rescue ""
-                  browser.button(:xpath => '//*[@id="platemodal"]/div/div/div[1]/button').click 
-                  
-                exist_data = SelltabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = 'https://selltabien.com/'")
-                
-                  if exist_data.count == 0
-                    $logger.info "Processing #{license_number}"
-                    results = SelltabienDetail.create(:date_created => date_created, :url => 'https://selltabien.com/' , :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
-                  end
+                      price = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_price").text.strip.split(":").last rescue ""
+                      location = doc.css("table.table.table-tabien-detail").css('td')[2].text.strip.split(":").last rescue ""
+                      status = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_status").text.strip.split(":").last rescue ""
+                      browser.button(:xpath => '//*[@id="platemodal"]/div/div/div[1]/button').click 
+                      
+                      exist_data = SelltabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = 'https://selltabien.com/'")
+                    
+                      if exist_data.count == 0
+                        $logger.info "Processing #{license_number}"
+                        results = SelltabienDetail.create(:date_created => date_created, :url => 'https://selltabien.com/' , :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                      end
+                    end
+                rescue Exception => e
+                  $logger.error "Error Occured - #{e.message}"
+                  $logger.error e.backtrace
                 end
-              rescue Exception => e
-                $logger.error "Error Occured - #{e.message}"
-                $logger.error e.backtrace
-              end
-              # break if ind >= 10
-            
-            # break if ind1 >= 2 
+                # break if ind >= 10
+              
+              # break if ind1 >= 2 
+            end
           end
+          update_status()
         end
-        update_status()
       end
 
     rescue Exception => e
