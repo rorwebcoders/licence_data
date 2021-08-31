@@ -65,14 +65,14 @@ class TabienddDatatBuilderAgent
           date_created = ((Date.today)).strftime('%Y-%m-%d')
                    
           listings = doc.css('div.row').select{|e| e.to_s.include?"last"}
-          
+          if listings.count > 0          
           listings.each_with_index do |each_list, ind1|
             
              license_group = each_list.css('div.last').text.strip rescue ""
-             # byebug
+             # 
           
             listings_1 = each_list.next_element.css('div.col-xs-6.col-sm-3.col-md-3.col-lg-2') rescue ""
-
+            if listings_1.to_s != ""
             listings_1.each_with_index do |each_data, ind|
               begin
                 status = ""
@@ -81,10 +81,9 @@ class TabienddDatatBuilderAgent
                 
                 license_number = each_data.css('span.number').text.strip rescue ""
                 price = each_data.css('div.num_price').text.strip rescue "" 
-                # byebug
-                location = "กรุงเทพมหานคร"
-
-                # if location == ''
+                location = Nokogiri.parse((each_data.css('p.text').to_s.split('<br>')[1].split('</span>').first)).text.strip rescue ""
+                
+                
 
                 status = each_data.css('input')[2]['value'] rescue ""
                 exist_data = TabienddDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
@@ -102,6 +101,8 @@ class TabienddDatatBuilderAgent
               end
               # break if ind >= 10
             end
+            end
+          end
             # break if ind1 >= 2 
           end
         end
@@ -138,13 +139,13 @@ class TabienddDatatBuilderAgent
         end
         @i=@i+1
       end
-        # byebug
+        # 
       previous_availability_check[res["url"].to_s] << {"current_date" => res["date_created"].to_s,"previous_available_date"=>previous_available_date.to_s}
     }
 
     previous_availability_check.each do |k,v|
       v.each do |s|
-        # byebug
+        # 
         puts s_current_date = (s["current_date"]).to_s
         puts  s_previous_available_date = (s["previous_available_date"]).to_s
         results = TabienddDetail.where("url = '#{k}' and date_created = '#{s_previous_available_date}'")
@@ -157,7 +158,7 @@ class TabienddDatatBuilderAgent
           results_current = TabienddDetail.where("url = '#{k}' and license_number = '#{license_number}' and date_created = '#{s_current_date}'")
           if results_current.count == 0
             processing_status = "Removed"
-            # byebug
+            # 
             TabienddDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
           end
         end

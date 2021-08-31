@@ -60,8 +60,8 @@ class TabienDatatBuilderAgent
 
   def start_processing
     begin
-      if $db_connection_established
-        urls = ["http://tabien.com"]
+      if $db_connection_establishe 
+         urls = ["http://tabien.com"]
         
           browser = Watir::Browser.new
           browser.goto("http://tabien.com")
@@ -73,8 +73,8 @@ class TabienDatatBuilderAgent
            
         
           listings.each_with_index do |each_list, ind1|
-            
-            puts license_group = each_list.css('font[color="#000000"]').text.strip rescue ""
+           
+             puts license_group = each_list.css('font[color="#000000"]').text.strip rescue ""
              
             
               listings_1 = each_list.parent.parent.css('table[@width="150"]')

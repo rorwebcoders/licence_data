@@ -64,9 +64,9 @@ class TabeanDatatBuilderAgent
           doc = Nokogiri::HTML(RestClient.get(each_url).body)
           date_created = ((Date.today)).strftime('%Y-%m-%d')
           
-          listings = doc.css('div.container').css('div.last')
+          listings = doc.css('div.shadow-lg.py-2.m-2.rounded.border.custom-bg-green-01_1')
           listings.each_with_index do |each_data,ind|
-            
+          
           listings_1 = each_data.next_element.css('div.col-6.col-sm-4.col-md-3.col-lg-3')
           listings_1.each_with_index do |each_list,ind|
               license_group = each_data.text.strip() rescue ""
@@ -80,7 +80,7 @@ class TabeanDatatBuilderAgent
                 price =  each_list.css('p.tabien-plate-text-price').text.strip() rescue ""
                 
                 link = each_list.css('a').attr('href').value
-                # 
+                
                 uri = URI.escape(link)
                 doc2 = Nokogiri::HTML(RestClient.get(uri).body)
                 status = doc2.css('td')[2].text.split(':').last.strip rescue ""
@@ -134,13 +134,13 @@ class TabeanDatatBuilderAgent
         end
         @i=@i+1
       end
-        # 
+        
       previous_availability_check[res["url"].to_s] << {"current_date" => res["date_created"].to_s,"previous_available_date"=>previous_available_date.to_s}
     }
 
     previous_availability_check.each do |k,v|
       v.each do |s|
-        # 
+        
         puts s_current_date = (s["current_date"]).to_s
         puts  s_previous_available_date = (s["previous_available_date"]).to_s
         results = TabeanDetail.where("url = '#{k}' and date_created = '#{s_previous_available_date}'")
@@ -153,7 +153,7 @@ class TabeanDatatBuilderAgent
           results_current = TabeanDetail.where("url = '#{k}' and license_number = '#{license_number}' and date_created = '#{s_current_date}'")
           if results_current.count == 0
             processing_status = "Removed"
-            # 
+            
             TabeanDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
           end
         end

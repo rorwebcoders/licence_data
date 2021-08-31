@@ -77,7 +77,7 @@ class SupertabienDatatBuilderAgent
                                  
                 license_number = each_data.css('.plate-title').text.strip() rescue ""
                 price = each_data.css('.plate-price').text.split().first.strip() rescue ""
-                location = "กรุงเทพมหานคร"
+                location = each_data.css('span.plate-pro').text.strip() rescue ""
                 color = ''
                 status = ''
           
