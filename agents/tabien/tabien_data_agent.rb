@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 require 'logger'
 require 'action_mailer'
+require 'watir'
+Selenium::WebDriver::Chrome::Service.driver_path = "C:/Chromedriver/chromedriver.exe"
 
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.delivery_method = :smtp
@@ -60,46 +62,56 @@ class TabienDatatBuilderAgent
     begin
       if $db_connection_established
         urls = ["http://tabien.com"]
-        urls.each do |each_url|
-          doc = Nokogiri::HTML(RestClient.get(each_url).body)
+        
+          browser = Watir::Browser.new
+          browser.goto("http://tabien.com")
+          sleep(10)
           date_created = ((Date.today)).strftime('%Y-%m-%d')
-          byebug
-          listings = doc.css('table')
+          
+          doc = Nokogiri::HTML(browser.html)
+           listings = doc.css('table').css('td[@style="background:url(images/frame_cat01.gif)"]')
+           
+        
           listings.each_with_index do |each_list, ind1|
-              license_group = each_list.css('h1.entry-title').text.strip rescue ""
-              byebug
-
-            listings_1 = each_list.css('li.col-md-4.col-lg-3')
+            
+            puts license_group = each_list.css('font[color="#000000"]').text.strip rescue ""
+             
+            
+              listings_1 = each_list.parent.parent.css('table[@width="150"]')
+            if listings_1.count == 0
+              listings_1 = each_list.parent.parent.css('table[@width="104"]')
+            end
 
             listings_1.each_with_index do |each_data, ind|
               begin
-                status = ""
-                price = ""
-                location = ""
-
-                license_number = each_data.css('h3.tabien-name').text.strip() rescue ""
-                price = each_data.css('div.tabien-price').text.split(/\s/).first.strip() rescue ""
-                location = each_data.css('div.tabien-status').text.strip() rescue ""
-                link = each_data.css('a').attr('href').value
-                 # byebug
-                uri = URI.escape(link)
-                doc2 = Nokogiri::HTML(RestClient.get(uri).body)
-                # byebug
-                status =  doc2.css('div.box-tabien').css('h2')[3].text.split(':').last.strip rescue ""
-
-                exist_data = TabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
-                if status.to_s != ''
+                location = ''
+                status = ''
+                color = ''
+                
+                if each_data.css('td')[4].to_s.include?'<td align="center">'
+                  license_number = each_data.css('td')[4].css("font[size*=2]").text.strip rescue ""
+                else           
+                 license_number = each_data.css("font[size*=4]").text.strip rescue ""
+                end
+                if each_data.css('td')[6].to_s.include?'<td align="center" valign="top" style="padding:3px">'
+                puts price = each_data.css('td')[6].css("font[size*=2]")[1].text.strip rescue ""
+                else
+                puts price = each_data.css("font[size*=2]").text.strip rescue ""
+                end
+                
+                exist_data = TabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{urls}'")
+                
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = TabienDetail.create(:date_created => date_created, :url => urls, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
                   end
-                end
+                
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"
                 $logger.error e.backtrace
               end
               # break if ind >= 10
-            end
+            
             # break if ind1 >= 2 
           end
         end
