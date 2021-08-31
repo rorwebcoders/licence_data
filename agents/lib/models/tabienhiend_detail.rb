@@ -1,2 +1,2 @@
-class TabienhiendDetail < ApplicationRecord
+class TabienhiendDetail < ActiveRecord::Base
 end
