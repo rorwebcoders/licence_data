@@ -99,11 +99,11 @@ class TabienDatatBuilderAgent
                 puts price = each_data.css("font[size*=2]").text.strip rescue ""
                 end
                 
-                exist_data = TabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{urls}'")
+                exist_data = TabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = 'http://tabien.com'")
                 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabienDetail.create(:date_created => date_created, :url => urls, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
+                    results = TabienDetail.create(:date_created => date_created, :url => "http://tabien.com", :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
                   end
                 
               rescue Exception => e

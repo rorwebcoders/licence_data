@@ -8,13 +8,13 @@ require 'logger'
 						$logger.formatter = Logger::Formatter.new
 
 #~ while true do
-pid_status_english = system("ps -aux | grep attabien_data_agent.rb | grep -vq grep")
+pid_status_english = system("ps -aux | grep tartabiensuay_data_agent.rb | grep -vq grep")
 				if pid_status_english
 						$logger.info ("nothing to do....")
 				else
 						$logger.info ("Process started....")
-						#~ system("nohup bundle exec /usr/bin/ruby ../attabien_data_agent.rb &")
-						system("nohup bundle exec ruby /home/rorwebcoders/scraper/Shoppee/LicenseData/current/agents/attabien/attabien_data_agent.rb -e production &")
+						#~ system("nohup bundle exec /usr/bin/ruby ../tartabiensuay_data_agent.rb &")
+						system("nohup bundle exec ruby /home/rorwebcoders/scraper/Shoppee/LicenseData/current/agents/tartabiensuay/tartabiensuay_data_agent.rb -e production &")
 				end
 #~ sleep 300
 #~ end
