@@ -1,0 +1,2 @@
+class TabienrodpramoolDetail < ApplicationRecord
+end

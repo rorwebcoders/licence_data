@@ -1,0 +1,2 @@
+class TabienchillDetail < ApplicationRecord
+end

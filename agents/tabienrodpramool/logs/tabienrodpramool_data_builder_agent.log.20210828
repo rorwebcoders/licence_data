@@ -1,0 +1,5 @@
+# Logfile created on 2021-07-28 22:34:07 +0530 by logger.rb/61378
+I, [2021-07-28T22:34:07.821568 #11236]  INFO -- : Mysql connection established
+I, [2021-07-28T22:40:11.309182 #22056]  INFO -- : Mysql connection established
+I, [2021-07-28T22:41:08.975513 #15112]  INFO -- : Mysql connection established
+I, [2021-07-28T22:41:32.029987 #12884]  INFO -- : Mysql connection established
