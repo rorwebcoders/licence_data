@@ -2,7 +2,7 @@
 require 'logger'
 require 'action_mailer'
 require 'watir'
-Selenium::WebDriver::Chrome::Service.driver_path = "C:/Chromedriver/chromedriver.exe"
+# Selenium::WebDriver::Chrome::Service.driver_path = "C:/Chromedriver/chromedriver.exe"
 
 ActionMailer::Base.raise_delivery_errors = true
 ActionMailer::Base.delivery_method = :smtp
