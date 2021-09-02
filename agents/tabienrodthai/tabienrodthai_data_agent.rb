@@ -75,9 +75,6 @@ class TabienrodthaiDatatBuilderAgent
             
             listings_1.each_with_index do |each_data, ind|
               begin
-                
-                
-               
                 license_number = each_data.css('table').css('td')[1].text.strip() rescue ""
                 price = each_data.css('table').css('td')[2].text.gsub(",","").split(/\D/).select{|e|!e.empty?}[0] rescue ""
                 location = ''
