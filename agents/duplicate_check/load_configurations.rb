@@ -64,4 +64,5 @@ require File.expand_path('../../lib/models/tartabiensuay_detail', __FILE__)
 require File.expand_path('../../lib/models/thabeiynthuk_detail', __FILE__)
 require File.expand_path('../../lib/models/thetabienrod_detail', __FILE__)
 require File.expand_path('../../lib/models/ttabien_detail', __FILE__)
+require File.expand_path('../../lib/models/tabienmongkol_detail', __FILE__)
 #~ require File.expand_path('../../lib/config/*
