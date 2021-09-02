@@ -15,7 +15,7 @@ ActionMailer::Base.smtp_settings = {
 }
 ActionMailer::Base.view_paths= File.dirname(__FILE__)
 
-class TartabiensuayrodnamchockMailer < ActionMailer::Base
+class TabienrodnamchockMailer < ActionMailer::Base
 
   def alert_data_email(q,e,n,p)
     puts "Sending Alert Email for #{p} email.."
@@ -33,7 +33,7 @@ class TartabiensuayrodnamchockMailer < ActionMailer::Base
   end
 end
 
-class TartabiensuayrodnamchockDatatBuilderAgent
+class TabienrodnamchockDatatBuilderAgent
   attr_accessor :options, :errors
 
   def initialize(options)
@@ -93,11 +93,11 @@ class TartabiensuayrodnamchockDatatBuilderAgent
                   status = "normal"
                 end
 
-                exist_data = TartabiensuayrodnamchockDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = TabienrodnamchockDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = TartabiensuayrodnamchockDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabienrodnamchockDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"
@@ -134,7 +134,7 @@ class TartabiensuayrodnamchockDatatBuilderAgent
       @num = 31
       while @i < @num  do
         old_data = (Date.parse(res["date_created"].to_s) - @i).strftime('%Y-%m-%d')
-        a = TartabiensuayrodnamchockDetail.where("url = '#{res["url"].to_s}' and date_created = '#{old_data}'")
+        a = TabienrodnamchockDetail.where("url = '#{res["url"].to_s}' and date_created = '#{old_data}'")
         if a.count > 0
           previous_available_date = old_data
           break
@@ -150,18 +150,18 @@ class TartabiensuayrodnamchockDatatBuilderAgent
         # byebug
         puts s_current_date = (s["current_date"]).to_s
         puts  s_previous_available_date = (s["previous_available_date"]).to_s
-        results = TartabiensuayrodnamchockDetail.where("url = '#{k}' and date_created = '#{s_previous_available_date}'")
+        results = TabienrodnamchockDetail.where("url = '#{k}' and date_created = '#{s_previous_available_date}'")
         results.each do |res|
           license_number = res["license_number"]
           location = res["location"]
           price = res["price"]
           status = res["license_status"]
           license_group = res["license_group"]
-          results_current = TartabiensuayrodnamchockDetail.where("url = '#{k}' and license_number = '#{license_number}' and date_created = '#{s_current_date}'")
+          results_current = TabienrodnamchockDetail.where("url = '#{k}' and license_number = '#{license_number}' and date_created = '#{s_current_date}'")
           if results_current.count == 0
             processing_status = "Removed"
             # byebug
-            TartabiensuayrodnamchockDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
+            TabienrodnamchockDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
           end
         end
       end
@@ -176,7 +176,7 @@ class TartabiensuayrodnamchockDatatBuilderAgent
       @num = 31
       while @i < @num  do
         old_data = (Date.parse(res["date_created"].to_s) - @i).to_s
-        a = TartabiensuayrodnamchockDetail.where("url = '#{res["url"].to_s}' and date_created = '#{Date.parse(old_data).strftime('%Y-%m-%d')}'")
+        a = TabienrodnamchockDetail.where("url = '#{res["url"].to_s}' and date_created = '#{Date.parse(old_data).strftime('%Y-%m-%d')}'")
         if a.count > 0
           previous_available_date = old_data
           break
@@ -191,7 +191,7 @@ class TartabiensuayrodnamchockDatatBuilderAgent
         puts s_current_date = Date.parse(s["current_date"]).strftime('%Y-%m-%d')
         puts  s_previous_available_date =(s["previous_available_date"]).to_s
 
-        results = TartabiensuayrodnamchockDetail.where("processing_status = '' and date_created = '#{s_current_date}' ")
+        results = TabienrodnamchockDetail.where("processing_status = '' and date_created = '#{s_current_date}' ")
         results.each do |res|
           id = res["id"]
           license_number = res["license_number"]
@@ -200,7 +200,7 @@ class TartabiensuayrodnamchockDatatBuilderAgent
           status = res["license_status"]
           color = res["color"]
           license_group = res["license_group"]
-          results_old = TartabiensuayrodnamchockDetail.where("license_number = '#{license_number}' and date_created = '#{s_previous_available_date}' and processing_status != 'Removed'")
+          results_old = TabienrodnamchockDetail.where("license_number = '#{license_number}' and date_created = '#{s_previous_available_date}' and processing_status != 'Removed'")
 
           if results_old.count == 0
             processing_status = "New"
@@ -216,7 +216,7 @@ class TartabiensuayrodnamchockDatatBuilderAgent
               processing_status = "No Change"
             end
           end
-          TartabiensuayrodnamchockDetail.where("id = '#{id}'").update_all(:processing_status => processing_status)
+          TabienrodnamchockDetail.where("id = '#{id}'").update_all(:processing_status => processing_status)
         end
       end
     end
@@ -254,5 +254,5 @@ optparse.parse!
 
 puts @options = options
 require File.expand_path('../load_configurations', __FILE__)
-newprojects_agent = TartabiensuayrodnamchockDatatBuilderAgent.new(options)
+newprojects_agent = TabienrodnamchockDatatBuilderAgent.new(options)
 newprojects_agent.start_processing
