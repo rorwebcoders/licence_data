@@ -90,14 +90,33 @@ class SelltabienDatatBuilderAgent
 
                       price = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_price").text.strip.split(":").last rescue ""
                       location = doc.css("table.table.table-tabien-detail").css('td')[2].text.strip.split(":").last rescue ""
-                      status = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_status").text.strip.split(":").last rescue ""
+                      statu = doc.css("table.table.table-tabien-detail").css("h4#tabiendetail_status").text.strip.split(":").last rescue ""
+                      if statu != ""
+                        status = "available"
+                      end
                       browser.button(:xpath => '//*[@id="platemodal"]/div/div/div[1]/button').click 
-                      
+                      if each_list.html.include?"cover tabien_gold click-to-modal"
+                        color = "gold"
+                      elsif each_list.html.include?"cover tabien_keng click-to-modal"
+                        color = "white special"
+                      elsif each_list.html.include?"cover tabien_blackwhite click-to-modal"
+                        color = "white"
+                      elsif each_list.html.include?"cover tabien_cap click-to-modal"
+                        color = "green special"
+                      elsif each_list.html.include?"cover tabien_normal_cap click-to-modal"
+                        color = "green"
+                      elsif each_list.html.include?"cover tabien_van click-to-modal"
+                        color = "blue special"
+                      elsif each_list.html.include?"cover tabien_normal_van click-to-modal"
+                        color = "blue"
+                      else
+                        color = ''
+                      end
                       exist_data = SelltabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = 'https://selltabien.com/'")
                     
                       if exist_data.count == 0
                         $logger.info "Processing #{license_number}"
-                        results = SelltabienDetail.create(:date_created => date_created, :url => 'https://selltabien.com/' , :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                        results = SelltabienDetail.create(:date_created => date_created, :url => 'https://selltabien.com/' , :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                       end
                     end
                 rescue Exception => e
@@ -108,7 +127,7 @@ class SelltabienDatatBuilderAgent
               
               # break if ind1 >= 2 
             end
-          end
+           end
           update_status()
         end
       end

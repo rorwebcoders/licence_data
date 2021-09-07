@@ -73,20 +73,33 @@ class ThetabienrodDatatBuilderAgent
               
               
               begin
-                status = ""
-                price = ""
-                location = ""
-                
+
+                location = "bangkok"              
                 license_number = each_list.css("div[class*=tabien-number]").text.strip() rescue ""
                 price =  each_list.css('.tabien-s').text.strip() rescue ""
-                
-                
-
+                if each_list.to_s.include?"buyed-txt"
+                  status = "sold"
+                else
+                  status = "available"
+                end
+                if each_list.to_s.include?"http://thetabienrod.com/media//license_bg/thumb/66095201596372799.jpeg"
+                  color = "white special"
+                elsif each_list.to_s.include?"http://thetabienrod.com/media//license_bg/thumb/31730411596373251.jpg"  
+                  color = "white"
+                elsif each_list.to_s.include?"http://thetabienrod.com/media//license_bg/thumb/58784491596372794.jpeg"  
+                  color = "Gold"
+                elsif each_list.to_s.include?"http://thetabienrod.com/media//license_bg/thumb/18016221596373212.jpeg"  
+                  color = "blue special"
+                elsif each_list.to_s.include?"http://thetabienrod.com/media//license_bg/thumb/84124051596373206.jpeg"  
+                  color = "green special"
+                else
+                  color = ""
+                end
                 exist_data = ThetabienrodDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 # if status.to_s != ''
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = ThetabienrodDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
+                    results = ThetabienrodDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   # end
                   end
               rescue Exception => e

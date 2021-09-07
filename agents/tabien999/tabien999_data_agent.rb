@@ -85,19 +85,39 @@ class Tabien999DatatBuilderAgent
                 price = each_data.css("p")[1].text.split(" ").first.strip() rescue ""
                 location = each_data.css("p")[2].text.strip() rescue ""
                 stats_temp = each_data.css("div.license-plate-booked").text.strip() rescue ""
-
-
                 if stats_temp != ""
                   status = "sold"
                 else
                   status = "normal"
                 end
-
+                if each_data.to_s.include?"url('https://999tabien.com/img/purple.png')"
+                  color = "white special"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/white.png')"
+                  color = "white"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/phuket.png')"
+                  color = "phuket"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/choburi.jpg')"
+                  color = "choburi"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/gold.png')"
+                  color = "gold"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/gblue.png')"
+                  color = "blue special"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/blue.png')"
+                  color = "blue"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/ggreen.png')"
+                  color = "green special"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/rayong.jpg')"
+                  color = "rayong"
+                elsif each_data.to_s.include?"url('https://999tabien.com/img/songkra.jpg')"
+                  color = "songkra"
+                else
+                  color = ""
+                end
                 exist_data = Tabien999Detail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = Tabien999Detail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = Tabien999Detail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

@@ -81,11 +81,50 @@ class TabienrodvipDatatBuilderAgent
                   license_number =  each_data.css('span.tabien-num').text.strip() rescue ""
                   price = each_data.css('span.tabien-price').text.strip() rescue ""
                   
+                  if price == "ขายแล้ว"
+                    status = "sold"
+                  else 
+                    status = "available"
+                  end
+                  if each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/iPU4d.jpg" 
+                  color = 'khonkaen'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/aUctm.jpg" 
+                  color = 'white'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/q5A77.jpg" 
+                  color = 'white special'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/3zMbY.jpg" 
+                  color = 'blue special'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com//media/aektabienvip/thumb/nC4Iy.jpg"
+                  color = 'gold'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com//media/aektabienvip/thumb/LCt9G.jpg"
+                  color = 'nonthaburi'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/IDMvU.jpg" 
+                  color = 'chiangmai'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/b2Sjv.jpg" 
+                  color = 'prachuab'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/6aZfG.jpg" 
+                  color = 'boungkarn'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/pedMQ.jpg" 
+                  color = 'ubon'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/c4Spy.jpg" 
+                  color = 'korat'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/FZbZk.jpg" 
+                  color = 'chonburi'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/xb33j.jpg" 
+                  color = 'nakornpathom'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/vRwtn.jpg" 
+                  color = 'phuket'
+                elsif each_data.to_s.include?"https://www.tabienrodvip.com/media/license_bg/thumb/hSXkR.jpg" 
+                  color = 'green special'
+                else
+                  color = ''
+                end
+
                   exist_data = TabienrodvipDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = TabienrodvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabienrodvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
                 rescue Exception => e
                   $logger.error "Error Occured - #{e.message}"

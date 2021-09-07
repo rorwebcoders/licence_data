@@ -72,9 +72,10 @@ class BooktabienDatatBuilderAgent
 
             listings_1.each_with_index do |each_data, ind|
               begin
-                status = ""
+                status = "all available"
                 price = ""
-                location = ""
+                location = "bangkok"
+
 
                 license_number = each_data.css('td')[0].text.strip() rescue ""
                 price = each_data.css('td')[1].text.strip() rescue ""
@@ -83,7 +84,7 @@ class BooktabienDatatBuilderAgent
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = BooktabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => '', :color => '', :processing_status => '')
+                  results = BooktabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

@@ -111,8 +111,30 @@ class ThabeiynthukDatatBuilderAgent
 
               license_number = sa.css('div.style28')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip.gsub("\n","") rescue ""
 
-              color = sa.css('table')[0].attr('background') rescue ""
-
+              if sa.to_s.include?"images/Tabien/1.png"
+                color = "white special"
+              elsif sa.to_s.include?"images/Tabien/3.png"
+                color = 'gold'
+              elsif sa.to_s.include?"images/Tabien/Van/1.png"
+                color = "blue special"
+              elsif sa.to_s.include?"style28 style40"
+                color = "blue basic"
+              elsif sa.to_s.include?"images/Tabien/pickup/1.png"
+                color = 'green special'
+              elsif sa.to_s.include?"images/Tabien/pickup/2.png"
+                color = "green basic"
+              elsif sa.to_s.include?"images/Tabien/bungkan.png"
+                color = "boungkarn"
+              elsif sa.to_s.include?"images/Tabien/2.png"
+                color = "nonthaburi"
+              elsif sa.to_s.include?"images/Tabien/Korat.png"
+                color = "korat"
+              elsif sa.to_s.include?"images/Tabien/mocyc/2.png"
+                color = "motorcycle"
+              else
+                color = ''
+              end
+              status = "available"
               if sa.to_s.include? "ribbonorder"
               status = "sold"
               end

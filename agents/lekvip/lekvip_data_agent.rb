@@ -80,102 +80,32 @@ class LekvipDatatBuilderAgent
                 license_number = each_data.css('h3.product-name').text.strip() rescue ""
                 price = each_data.css('div.wpsc_product_price').css('.currentprice.pricedisplay').text.split(/\s/).first.strip rescue ""
                 location = each_data.css('div.product-desc').text.strip() rescue ""
-                status = each_data.css('div.wpsc_buy_button_container').text.split().first.strip() rescue ""
+                statu = each_data.css('div.wpsc_buy_button_container').text.split().first.strip() rescue ""
+                if statu == "หยิบใส่ตะกร้า"
+                  status = "available"
+                elsif statu == "จองแล้ว"
+                  status = "sold"
+                end
+                if each_data.to_s.include?"http://www.lekvip.com/wp-content/uploads/2014/10/bg_tabien_cl.png"
+                  color = "white special"
+                elsif each_data.to_s.include?"http://www.lekvip.com/wp-content/uploads/2012/10/bg_tabien_gold.png"
+                  color = "Gold"
+                elsif each_data.to_s.include?"item_no_image"
+                  color = "white"
+                else
+                  color = ''
+                end
                 exist_data = LekvipDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = LekvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = LekvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                    end
                 rescue Exception => e
                   $logger.error "Error Occured - #{e.message}"
                   $logger.error e.backtrace
                 end
-              # end
-              # end              
-
-              # listings = doc.css('div.widget-2.fance')
-              # listings.each_with_index do |each_list, ind1|
-              # license_group = each_list.css('h2').text.strip
-
-              # listings_1 = each_list.css('div.grid').css('ul').css('li')
               
-              # listings_1.each_with_index do |each_data, ind|
-              # begin
-              #   status = ""
-              #   price = ""
-              #   location = ""
-                
-              #   license_number = each_data.css('h3.product-name').text.strip() rescue ""
-              #   price = each_data.css('div.wpsc_product_price').css('.currentprice.pricedisplay').text.split(/\s/).first.strip rescue ""
-              #   location = each_data.css('div.product-desc').text.strip() rescue ""
-              #   status = each_data.css('div.wpsc_buy_button_container').css('span').text.strip() rescue ""
-              #   exist_data = LekvipDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
-               
-              #     if exist_data.count == 0
-              #       $logger.info "Processing #{license_number}"
-              #       results = LekvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
-              #      end
-              #     rescue Exception => e
-              #     $logger.error "Error Occured - #{e.message}"
-              #     $logger.error e.backtrace
-              #   end
-              #   end
-              # end
-              # listings = doc.css('div.widget-3.fance')
-              # listings.each_with_index do |each_list, ind1|
-              # license_group = each_list.css('h2').text.strip
-
-              # listings_1 = each_list.css('div.grid').css('ul').css('li')
-              
-              # listings_1.each_with_index do |each_data, ind|
-              # begin
-              #   status = ""
-              #   price = ""
-              #   location = ""
-                
-              #   license_number = each_data.css('h3.product-name').text.strip() rescue ""
-              #   price = each_data.css('div.wpsc_product_price').css('.currentprice.pricedisplay').text.split(/\s/).first.strip rescue ""
-              #   location = each_data.css('div.product-desc').text.strip() rescue ""
-              #   status = each_data.css('div.wpsc_buy_button_container').css('span').text.strip() rescue ""
-              #   exist_data = LekvipDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
-               
-              #     if exist_data.count == 0
-              #       $logger.info "Processing #{license_number}"
-              #       results = LekvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
-              #      end
-              #     rescue Exception => e
-              #     $logger.error "Error Occured - #{e.message}"
-              #     $logger.error e.backtrace
-              #   end
-              #   end
-              # end
-              # listings = doc.css('div.widget-4.omega.fance')
-              # listings.each_with_index do |each_list, ind1|
-              # license_group = each_list.css('h2').text.strip
-
-              # listings_1 = each_list.css('div.grid').css('ul').css('li')
-              
-              # listings_1.each_with_index do |each_data, ind|
-              # begin
-              #   status = ""
-              #   price = ""
-              #   location = ""
-                
-              #   license_number = each_data.css('h3.product-name').text.strip() rescue ""
-              #   price = each_data.css('div.wpsc_product_price').css('.currentprice.pricedisplay').text.split(/\s/).first.strip rescue ""
-              #   location = each_data.css('div.product-desc').text.strip() rescue ""
-              #   status = each_data.css('div.wpsc_buy_button_container').css('span').text.strip() rescue ""
-              #   exist_data = LekvipDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
-               
-              #     if exist_data.count == 0
-              #       $logger.info "Processing #{license_number}"
-              #       results = LekvipDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
-              #      end   
-              #     rescue Exception => e
-              #     $logger.error "Error Occured - #{e.message}"
-              #     $logger.error e.backtrace
-              #   end
                   end
                 end
               

@@ -71,19 +71,32 @@ class ClubtabienDatatBuilderAgent
             listings_1 = each_list.css('div.licenplate-block')
 
             listings_1.each_with_index do |each_data, ind|
-              begin
-                status = ""
-                price = ""
-                location = ""
+              begin                                    
                 
                 license_number = each_data.css('div.charnumber').text.strip() rescue ""
                 price = each_data.css('.province').text.strip() rescue ""
-                
+                if each_data.to_s.include?"div.licenceplate.licenceplate-white.sold"
+                  status = "sold"
+                else
+                  status = "available"
+                end              
+                location = "bangkok"
+                if each_data.to_s.include?"licenceplate licenceplate-blue new"
+                  color = "blue all"
+                elsif each_data.to_s.include?"licenceplate licenceplate-green new"
+                  color = "green all"
+                elsif each_data.to_s.include?"licenceplate licenceplate-purple new"   
+                  color = "white special"
+                elsif each_data.to_s.include?"licenceplate licenceplate-white normal"
+                  color = "white"
+                else
+                  color = ""
+                end  
                 exist_data = ClubtabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
               
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = ClubtabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
+                    results = ClubtabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
               
               rescue Exception => e

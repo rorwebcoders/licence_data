@@ -83,13 +83,29 @@ class AttabienDatatBuilderAgent
 
                 license_number = each_data.css('div.product_tabian').text.strip() rescue ""
                 price = each_data.css('div.product_price').text.strip() rescue ""
-                status = each_data.css('div.detail-green1').text.strip() rescue ""
+                if each_data.css('div.detail-green1').to_s.include?"ว่าง"
+                  status = "available"
+                elsif each_data.css('div.detail-red').to_s.include?"จองแล้ว" or "ขายแล้ว"
+                  status = "sold"
+                else 
+                  status = ""
+                end
+                location = "bangkok"
+                if each_data.to_s.include?"product_tabian" 
+                  color = "white special"
+                elsif each_data.to_s.include?'" white"'
+                  color = "white"
+                elsif each_data.to_s.include?"bkk8"
+                  color = "gold"
+                else 
+                  color = ""
+                end
                 exist_data = AttabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
-                if status.to_s != ''
+                
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = AttabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
-                  end
+                    results = AttabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
+                
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

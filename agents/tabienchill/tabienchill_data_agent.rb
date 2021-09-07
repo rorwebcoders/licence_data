@@ -76,18 +76,59 @@ class TabienchillDatatBuilderAgent
                 status = ""
                 price = ""
                 location = ""
-
                 license_number =  each_data.css("span.tabien-num").text.strip() rescue ""
                 price = each_data.css("span.tabien-price").text.strip() rescue ""
-                if each_data.css("div.tabien-sum").to_s.include?("color:#F00")
-                  status = each_data.css("div.tabien-sum").to_s.split('<span style="color:#F00">').last.split("</span>").first.strip() rescue ""
+                # if each_data.css("div.tabien-sum").to_s.include?("color:#F00")
+                #   statu = each_data.css("div.tabien-sum").to_s.split('<span style="color:#F00">').last.split("</span>").first.strip() rescue ""
+                # end
+
+                if each_data.to_s.include?"ขายแล้ว"
+                  status = "sold"
+                else
+                  status = "available"
                 end
+                
+                if each_data.to_s.include?"media/license_bg/thumb/hSXkR.jpg"
+                  color = "green special"
+                elsif each_data.to_s.include?"media/license_bg/thumb/29568471620278476.jpg"
+                  color = "blue basic"
+                elsif each_data.to_s.include?"media/license_bg/thumb/q5A77.jpg"
+                  color = "white special"
+                elsif each_data.to_s.include?"media/license_bg/thumb/aUctm.jpg"
+                  color = "white"
+                elsif each_data.to_s.include?"media/license_bg/thumb/18523721602823483.jpg"
+                  color = "gold"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/RTGT6.jpg"
+                  color = "khonkaen"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/6aZfG.jpg"
+                  color = "boungkarn"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/MgPwJ.jpg"
+                  color = "chiangrai"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/xb33j.jpg"
+                  color = "nakhonpathom"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/c4Spy.jpg"
+                  color = "nakornratchasima"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/LCt9G.jpg"
+                  color = "nonthaburi"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/vRwtn.jpg"
+                  color = "phuket"
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/EdGza.jpg"
+                  color = 'chonburi'
+                elsif each_data.to_s.include?"https://tabienchill.com/media/license_bg/thumb/3zMbY.jpg"
+                  color = 'blue special'
+                else
+                  color = ''
+                end
+                  
+
+
+
 
                 exist_data = TabienchillDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = TabienchillDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabienchillDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

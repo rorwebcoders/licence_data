@@ -95,20 +95,37 @@ class TabienmongkolDatatBuilderAgent
                   
                   license_number = ""
                   price = ""
-                  location = ""
+                  location = "bangkok"
                   status = ""
                   
 
                   price = saa.css('div')[2].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
                   license_number = saa.css('div')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
-                  status = saa.css('div')[1].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
+                  statu = saa.css('div')[1].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
+                  if statu == "จองแล้ว"
+                    status = "sold"
+                  else
+                    status = "available"
+                  end
 
-
+                  if saa.to_s.include?"images/tabien_sp.jpg"
+                    color = 'white special'
+                  elsif saa.to_s.include?"images/tabien_gold.jpg"
+                    color = 'gold'
+                  elsif saa.to_s.include?"num_style21"
+                    color = 'white'
+                  elsif saa.to_s.include?"num_style23"
+                    color = 'blue all'
+                  elsif saa.to_s.include?"num_style22"
+                    color = 'green all'
+                  else
+                    color = ""
+                  end
                   exist_data = TabienmongkolDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabienmongkolDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
+                    results = TabienmongkolDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
 
                     rescue Exception => e

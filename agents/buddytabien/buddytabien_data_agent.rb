@@ -76,22 +76,39 @@ class BuddytabienDatatBuilderAgent
                 status = ""
                 price = ""
                 location = ""
-
+                
                 license_number = each_data.css("p.tabien").text.strip() rescue ""
                 if license_number.to_s == ''
                   license_number = each_data.css("p.tabien-front-moto").text.strip() rescue ""
                 end
                 price = each_data.css("p.price").text.strip() rescue ""
-                status = each_data.css("h4").text.strip() rescue ""
+                              
+                status = "available"
+                
                 location = each_data.css('p.bkk').text.strip() rescue ""
                 if location.to_s == ''
                   location = each_data.css('p.bkk-moto').text.strip() rescue ""
+                end
+                if each_data.to_s.include?"images/tabien/4.jpg"
+                  color = 'white special'
+                elsif each_data.to_s.include?"images/tabien/7.jpg"
+                  color = 'gold'
+                elsif each_data.to_s.include?"images/tabien/1.jpg"
+                  color = 'white'
+                elsif each_data.to_s.include?"color:#2fa8f9 !important"
+                  color = 'blue'
+                elsif each_data.to_s.include?"color:#008000 !important"
+                  color = 'green'
+                elsif each_data.to_s.include?"images/tabien/19.jpg"
+                  color = 'motorcycle'
+                else
+                  color = ''
                 end
                 exist_data = BuddytabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = BuddytabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = BuddytabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

@@ -88,9 +88,9 @@ class TabienhiendDatatBuilderAgent
                           begin
                             license_number = ""
                             price = ""
-                            location = ""
+                            location = "bangkok"
                             color = ""
-                            status = ""
+                            status = "available"
                             link = ""
 
                             if (saa.to_s.include?"sold" or saa.to_s.include?"Sold" or saa.to_s.include?"SOLD")
@@ -102,7 +102,20 @@ class TabienhiendDatatBuilderAgent
                             if saa.css('span.price').length>0
                                price = saa.css('span.price')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
                             end
-                       
+
+                            if saa.to_s.include?"licenceplate licenceplate-purple new"
+                              color = "white special"
+                            elsif saa.to_s.include?"licenceplate licenceplate-white new"
+                              color = "white"
+                            elsif saa.to_s.include?"licenceplate licenceplate-gold new"
+                              color = "gold"
+                            elsif saa.to_s.include?"licenceplate licenceplate-blue normal"
+                              color = 'blue basic'
+                            elsif saa.to_s.include?"licenceplate licenceplate-green new"
+                              color = 'green basic'
+                            else
+                              color = ''
+                            end
 
                              license_number = saa.css('div.charnumber')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
                              link = "https://tabienhiend.com" + saa.css('a')[0].attr('href').squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
@@ -129,9 +142,7 @@ class TabienhiendDatatBuilderAgent
 
                                   doc2.xpath("//table[@class='table']")[0].css('tr').each do |satr| 
 
-                                    if satr.text.include?"ชนิดป้าย"
-                                        color = satr.css('td')[1].text.squeeze("\n").squeeze("\t").squeeze(" ").strip rescue ""
-                                    end
+                                    
 
                                   end
                                 rescue
@@ -141,7 +152,7 @@ class TabienhiendDatatBuilderAgent
 
                                 if exist_data.count == 0
                                   $logger.info "Processing #{license_number}"
-                                  results = TabienhiendDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => color, :processing_status => '')
+                                  results = TabienhiendDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                                 end
                                 rescue Exception => e
                                 $logger.error "Error Occured - #{e.message}"

@@ -124,8 +124,12 @@ class MiracletabienDatatBuilderAgent
                 
                 doc2 = Nokogiri::HTML(response2.body)
 
-                status = doc2.xpath("//div[@class='col-lg-7 pb-5']")[0].css('h3.font-weight-semi-bold')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip.split(': ')[1] rescue ""
-                
+                statu = doc2.xpath("//div[@class='col-lg-7 pb-5']")[0].css('h3.font-weight-semi-bold')[0].text.squeeze("\n").squeeze("\t").squeeze(" ").strip.split(': ')[1] rescue ""
+                if statu == "ขายแล้ว"
+                  status = 'sold'
+                else
+                  status = 'available'
+                end
                 begin
                 doc2.xpath("//div[@class='col-lg-7 pb-5']")[0].css('div.d-flex.mb-2').each do |fd|
                    

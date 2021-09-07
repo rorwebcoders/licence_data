@@ -76,14 +76,19 @@ class MarkettabienDatatBuilderAgent
               listings_1.each_with_index do |each_data, ind|
                 status = ""
                 price = ""
-                location = ""
+                location = "bangkok"
 
                 license_number =  each_data.css('div.charnumber').text.strip() rescue ""
                 price = each_data.css('span.price').text.strip() rescue ""
                 details_url = each_data.css('a.tabienlink').attr('href').value
                 details_doc = Nokogiri::HTML(RestClient.get(details_url).body)
                 color = details_doc.css('tr:contains("ชนิดป้าย")').text.split('ชนิดป้าย').last.strip rescue ""
-                status = details_doc.css('tr:contains("สถานะ")').text.split('สถานะ').last.strip rescue ""
+                statu = details_doc.css('tr:contains("สถานะ")').text.split('สถานะ').last.strip rescue ""
+                if statu ==  "ว่าง"
+                  status = 'available'
+                elsif statu == "จองแล้ว"
+                  status = 'sold'
+                end
                 exist_data = MarkettabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 exist_data = MarkettabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")

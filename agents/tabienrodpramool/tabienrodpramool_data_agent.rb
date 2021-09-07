@@ -75,17 +75,36 @@ class TabienrodpramoolDatatBuilderAgent
               begin
                 status = ""
                 price = ""
-                location = ""
+                location = "bangkok"
 
                 license_number = each_data.css("div.tabien_name").text.strip() rescue ""
                 price = each_data.css("div.tabien_price").text.strip() rescue ""
-                status = each_data.css("h4").text.strip() rescue ""
+                statu = each_data.css("h4").text.strip() rescue ""
+                if statu.include?"จองแล้ว"
+                  status = "sold"
+                end
+                if statu == "ว่าง"
+                  status = "available"
+                end
 
+                if each_data.to_s.include?"img/tabien-new.png"
+                  color = 'white special'
+                elsif each_data.to_s.include?"img/tabien-background-white.jpg"
+                  color = 'white'
+                elsif each_data.to_s.include?"img/tabien-background-gold.jpg"
+                  color = 'gold'
+                elsif each_data.to_s.include?"img/tabien-background-kraba.jpg"
+                  color = 'green special'
+                elsif each_data.to_s.include?"img/tabien-background-van.jpg"
+                  color = 'van special'
+                else
+                  color = ''
+                end
                 exist_data = TabienrodpramoolDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                    $logger.info "Processing #{license_number}"
-                  results = TabienrodpramoolDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabienrodpramoolDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

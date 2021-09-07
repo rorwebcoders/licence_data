@@ -87,16 +87,20 @@ class TabienhengDatatBuilderAgent
                 doc2 = Nokogiri::HTML(RestClient.get(uri).body)
               
                 location = doc2.css('div.entry').css('table').css('tr')[4].css('td')[1].text.strip() rescue "" 
-                status = doc2.css('div.entry').css('table').css('tr')[3].css('td')[1].text.strip() rescue ""
+                # status = doc2.css('div.entry').css('table').css('tr')[3].css('td')[1].text.strip() rescue ""               
+                if price == "จองแล้ว"
+                  status = "sold"
+                else
+                  status = "available"
+                end
 
-                
-                color = ''
+                color = doc2.css('div.entry').css('table').css('tr')[3].css('td')[1].text.strip() rescue ""               
 
                 exist_data = TabienhengDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
             
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabienhengDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = TabienhengDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
             
               rescue Exception => e

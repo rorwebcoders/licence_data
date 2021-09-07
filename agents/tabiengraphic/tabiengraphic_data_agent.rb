@@ -88,13 +88,37 @@ class TabiengraphicDatatBuilderAgent
 
                 status = doc2.css('div.box-tabien').css('h2')[3].text.split(":").last.strip() rescue ""
 
-
+                if each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/purple.png" 
+                  color = 'white special'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/white.png" 
+                  color = 'white'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/phuket.png"
+                  color = 'phuket'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/choburi.jpg"
+                  color = 'chonburi'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/gold.png"
+                  color = 'gold'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/ggreen.png" 
+                  color = 'green special'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/gblue.png" 
+                  color = 'blue special'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/blue.png"
+                  color = 'blue basic'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/rayong.jpg"
+                  color = 'rayong'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/songkra.jpg" 
+                  color = 'songkla'
+                elsif each_data.to_s.include?"https://www.tabiengraphic.com/asset/web/img/tabien/nara.png" 
+                  color = 'nara'
+                else
+                  color = ''
+                end
 
                 exist_data = TabiengraphicDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
             
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabiengraphicDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = TabiengraphicDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
             
               rescue Exception => e

@@ -72,20 +72,33 @@ class SupertabienDatatBuilderAgent
             listings_1 = each_list.css("ul.plate-list").css('li')
               
             listings_1.each_with_index do |each_data, ind|
-              begin
-                
-                                 
+              begin    
+                                       
                 license_number = each_data.css('.plate-title').text.strip() rescue ""
                 price = each_data.css('.plate-price').text.split().first.strip() rescue ""
                 location = each_data.css('span.plate-pro').text.strip() rescue ""
-                color = ''
-                status = ''
+                if each_data.to_s.include?"inner-plate ป้ายฟ้า"
+                  color = "blue basic"
+                elsif each_data.to_s.include?"inner-plate ป้ายเขียว"
+                  color = "green basic"
+                elsif each_data.to_s.include?"inner-plate ป้ายฟ้ารถตู้"
+                  color = "blue special"
+                elsif each_data.to_s.include?"inner-plate ป้ายเขียวรถกระบะ"
+                  color = "green special"
+                elsif each_data.to_s.include?"inner-plate ขาวกรอบดำ"
+                  color = "white"
+                elsif each_data.to_s.include?'<div class="inner-plate">'
+                  color = "motorcycle"
+                else
+                  color = ""
+                end
+                status = "available"
           
                 exist_data = SupertabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = SupertabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = SupertabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
                 
               rescue Exception => e

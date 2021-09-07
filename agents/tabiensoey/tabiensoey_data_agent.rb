@@ -81,13 +81,29 @@ class TabiensoeyDatatBuilderAgent
                 license_number = doc2.css('div.card-block').css('h5')[1].text.strip rescue""
                 price = doc2.css('div.card-block').css('h5')[9].text.split().first.strip rescue""
                 location = doc2.css('div.card-block').css('h5')[5].text.strip rescue""
-                status =  doc2.css('div.card-block').css('h5')[11].text.strip rescue""
+                statu =  doc2.css('div.card-block').css('h5')[11].text.strip rescue""
+                status = "available"
+                if each_list.to_s.include?"assets/images/tabien/bkk_ori.jpg"
+                  color = 'white special'
+                elsif each_list.to_s.include?"assets/images/tabien/bkk_white.jpg"
+                  color = 'white'
+                elsif each_list.to_s.include?"assets/images/tabien/bkk_gold.jpg"
+                  color = 'gold'
+                elsif each_list.to_s.include?"border:solid #0034fa;"
+                  color = 'blue basic'
+                elsif each_list.to_s.include?"assets/images/tabien/bkk_green.jpg"
+                  color = "green special"
+                elsif each_list.to_s.include?"border:solid #069603;"
+                  color = "green basic"
+                else
+                  color = ""
+                end    
 
                 exist_data = TabiensoeyDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 if status.to_s != ''
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabiensoeyDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = TabiensoeyDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
                 end
               rescue Exception => e

@@ -84,7 +84,13 @@ class TeeneetabienDatatBuilderAgent
               details_doc = Nokogiri::HTML(RestClient.get(uri).body)
               color = details_doc.css('div:contains("ป้ายทะเบียนสี")').text.split('ป้ายทะเบียนสี').last.strip rescue ""
               location = details_doc.css('div:contains("จังหวัด")').text.split('จังหวัด').last.strip rescue ""
-              status = details_doc.css('div:contains("สถานะ")').text.split('สถานะ').last.strip rescue ""
+              statu = details_doc.css('div:contains("สถานะ")').text.split('สถานะ').last.strip rescue ""
+              if status == "ทั่วไป" or "มาใหม่"
+                status = "available"
+              elsif statu == "ขายแล้ว"
+                status = "sold"
+              end
+
               exist_data = TeeneetabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
               if exist_data.count == 0

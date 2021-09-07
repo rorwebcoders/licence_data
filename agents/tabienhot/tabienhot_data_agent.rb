@@ -89,11 +89,34 @@ class TabienhotDatatBuilderAgent
                 else
                   status = "normal"
                 end
+                if each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/2.png"
+                  color = 'white'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/1.png"
+                  color = 'white special'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/3.png"
+                  color = 'gold'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/5-1.png"
+                  color = 'blue special'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/5.png"
+                  color = 'blue basic'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/4-1.png"
+                  color = 'green special'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/4.png"
+                  color = 'green basic'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/bungkan.png"
+                  color = 'boungkarn'  
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/korat.png"
+                  color = 'nakornratsima'
+                elsif each_data.to_s.include?"https://www.tabienhot.com/assets/img/plateBg/thumb/mocyc.jpg"
+                  color = 'motorcycle'
+                else
+                  color = ''
+                end
                 exist_data = TabienhotDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = TabienhotDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabienhotDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

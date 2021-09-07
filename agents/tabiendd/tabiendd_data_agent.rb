@@ -75,22 +75,38 @@ class TabienddDatatBuilderAgent
             if listings_1.to_s != ""
             listings_1.each_with_index do |each_data, ind|
               begin
-                status = ""
+                
                 price = ""
                 location = ""
-                
+                                
                 license_number = each_data.css('span.number').text.strip rescue ""
                 price = each_data.css('div.num_price').text.strip rescue "" 
                 location = Nokogiri.parse((each_data.css('p.text').to_s.split('<br>')[1].split('</span>').first)).text.strip rescue ""
-                
-                
-
-                status = each_data.css('input')[2]['value'] rescue ""
+                status = 
+                if each_data.to_s.include?"http://www.tabiendd.com/site_data/img/violet.png"
+                color = "White special"
+                elsif each_data.to_s.include?"http://www.tabiendd.com/site_data/img/white.png"
+                  color = "White"
+                elsif each_data.to_s.include?"http://www.tabiendd.com/site_data/img/yellow.png"
+                  color = "Gold"
+                elsif each_data.to_s.include?"http://www.tabiendd.com/site_data/img/blue.png"
+                  color = "blue all"
+                elsif each_data.to_s.include?"http://www.tabiendd.com/site_data/img/green.png"
+                  color = "green all"
+                else
+                  color = ""
+                end
+                statu = each_data.css('input')[2]['value'] rescue ""
+                if statu == "ขายแล้ว"
+                  status = "sold"
+                elsif statu == "สั่งซื้อ"
+                  status = "available" 
+                end
                 exist_data = TabienddDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabienddDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = TabienddDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
           
 

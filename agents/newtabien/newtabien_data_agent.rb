@@ -83,11 +83,31 @@ class NewtabienDatatBuilderAgent
                 
                 price =  Nokogiri::HTML.parse(each_data.to_s.split('div style="padding:5px').last.split('</div>').first.split('>').last).text.split(/\s/)[1].strip rescue ""
                 location = Nokogiri::HTML.parse(each_data.to_s.split('<div style="padding:10px 5px 0px' ).last.split('</div>')[1].split("\n").last).text.strip rescue ""
+                if price == ""
+                  status = 'sold'
+                else
+                  status = 'available'
+                end
+                if each_data.to_s.include?"url(picture/2_black.png)"
+                  color = 'white'
+                elsif each_data.to_s.include?"url(picture/1_1_11111.png)"
+                  color = "white special"
+                elsif each_data.to_s.include?"url(picture/6_6_gold.png)"
+                  color = "gold"
+                elsif each_data.to_s.include?"url(picture/)"
+                  color = "motorcycle"
+                elsif each_data.to_s.include?"url(picture/3_green.png)"
+                  color = "green all"
+                elsif each_data.to_s.include?"url(picture/4_blue.png)"
+                  color = "blue all"
+                else
+                  color = ""
+                end  
                 exist_data = NewtabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = NewtabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = NewtabienDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
                 
               rescue Exception => e

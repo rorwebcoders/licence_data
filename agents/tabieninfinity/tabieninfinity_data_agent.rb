@@ -93,11 +93,37 @@ class TabieninfinityDatatBuilderAgent
                   status = "normal"
                 end
 
+                if each_data.to_s.include?"https://www.tabieninfinity.com/img/purple.png"
+                  color = 'white special'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/white.png"
+                  color = 'white'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/phuket.png"
+                  color = 'phuket'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/choburi.jpg"
+                  color = 'chonburi'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/gold.png"
+                  color = 'gold'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/ggreen.png"
+                  color = 'green special'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/gblue.png"
+                  color = 'blue special'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/blue.png"
+                  color = 'blue basic'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/rayong.jpg"
+                  color = 'rayong'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/songkra.jpg"
+                  color = 'songkla'
+                elsif each_data.to_s.include?"https://www.tabieninfinity.com/img/nara.png"
+                  color = 'nara'
+                else
+                  color = ''
+                end
+                
                 exist_data = TabieninfinityDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = TabieninfinityDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabieninfinityDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"

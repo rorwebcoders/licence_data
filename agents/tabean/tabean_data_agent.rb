@@ -74,7 +74,7 @@ class TabeanDatatBuilderAgent
               begin
                 status = ""
                 price = ""
-                location = ""
+                location = "bangkok"
 
                 license_number = each_list.css('p')[0].text.strip() rescue ""
                 price =  each_list.css('p.tabien-plate-text-price').text.strip() rescue ""
@@ -83,13 +83,36 @@ class TabeanDatatBuilderAgent
                 
                 uri = URI.escape(link)
                 doc2 = Nokogiri::HTML(RestClient.get(uri).body)
-                status = doc2.css('td')[2].text.split(':').last.strip rescue ""
-
+                statu = doc2.css('td')[2].text.split(':').last.strip rescue ""
+                if price == ""
+                  status = 'sold'
+                else
+                  status = 'available'
+                end
+                if each_list.to_s.include?"https://tabean.com/public/images/plate/110100.jpg"
+                  color = 'white special'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/100100.jpg"
+                  color = 'white'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/120200.jpg"
+                  color = 'gold'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/210100.jpg"
+                  color = 'green special'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/200200.jpg"
+                  color = 'green'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/300300.jpg"
+                  color = 'blue'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/310100.jpg"
+                  color = 'blue special'
+                elsif each_list.to_s.include?"https://tabean.com/public/images/plate/400100.jpg"
+                  color = 'motorcycle'
+                else
+                  color = ''
+                end
                 exist_data = TabeanDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 # if status.to_s != ''
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabeanDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => '', :license_status => status, :color => '', :processing_status => '')
+                    results = TabeanDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   # end
                   end
               rescue Exception => e

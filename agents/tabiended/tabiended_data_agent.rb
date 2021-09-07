@@ -67,7 +67,7 @@ class TabiendedDatatBuilderAgent
           listings = doc.css('div.box-tabien')
           listings.each_with_index do |each_list, ind1|
               license_group = each_list.css('h1.entry-title').text.strip rescue ""
-              byebug
+              
 
             listings_1 = each_list.css('li.col-md-4.col-lg-3')
 
@@ -85,13 +85,36 @@ class TabiendedDatatBuilderAgent
                 uri = URI.escape(link)
                 doc2 = Nokogiri::HTML(RestClient.get(uri).body)
                 # byebug
-                status =  doc2.css('div.box-tabien').css('h2')[3].text.split(':').last.strip rescue ""
-
+                statu =  doc2.css('div.box-tabien').css('h2')[3].text.split(':').last.strip rescue ""
+                if statu == "จองแล้ว"
+                  status = 'sold'
+                else
+                  status = 'available'
+                end
+                if each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/purple.png"
+                  color = 'white special'
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/white.png"
+                  color = 'white' 
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/gblue_m.png"
+                  color = 'blue special'
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/blue.png"
+                  color = 'blue'
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/ggreen_m.png"
+                  color = 'green special'
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/choburi.jpg"
+                  color = 'chonburi'
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/rayong_m.jpg"
+                  color = 'rayong'
+                elsif each_data.to_s.include?"https://www.tabiended.com/asset/web/img/tabien/songkra.jpg"
+                  color = 'songkla'
+                else
+                  color = ''
+                end
                 exist_data = TabiendedDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 if status.to_s != ''
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
-                    results = TabiendedDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                    results = TabiendedDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                   end
                 end
               rescue Exception => e

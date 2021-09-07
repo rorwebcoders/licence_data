@@ -76,16 +76,21 @@ class TabienmotorcycleDatatBuilderAgent
                 status = ""
                 price = ""
                 location = ""
-
+                
                 license_number =  each_data.css("strong")[0].text.strip() rescue ""
                 price = each_data.css("div.tabien-price")[0].text.strip() rescue ""
                 location = each_data.css("span")[0].text.strip() rescue ""
-                
+                if each_data.css('div.col-4.tabien-status').to_s.include?"ว่าง"
+                  status = "available"
+                else
+                  status = ''
+                end
+                color = "all motorcycle"    
                 exist_data = TabienmotorcycleDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
-                  results = TabienmotorcycleDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => '', :processing_status => '')
+                  results = TabienmotorcycleDetail.create(:date_created => date_created, :url => each_url, :license_group => license_group, :license_number => license_number, :price => price, :location => location, :license_status => status, :color => color, :processing_status => '')
                 end
               rescue Exception => e
                 $logger.error "Error Occured - #{e.message}"
