@@ -91,12 +91,12 @@ class AttabienDatatBuilderAgent
                   status = ""
                 end
                 location = "bangkok"
-                if each_data.to_s.include?"product_tabian" 
-                  color = "white special"
-                elsif each_data.to_s.include?'" white"'
-                  color = "white"
-                elsif each_data.to_s.include?"bkk8"
+                if each_data.to_s.include?'<div class=" bkk8">'
                   color = "gold"
+                elsif each_data.to_s.include?'<div class=" white"'
+                  color = "white"
+                elsif each_data.to_s.include?"product_tabian"
+                  color = "white special"
                 else 
                   color = ""
                 end
