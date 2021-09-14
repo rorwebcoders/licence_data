@@ -107,10 +107,10 @@ class TabienmongkolDatatBuilderAgent
                   else
                     status = "available"
                   end
-
-                  if saa.to_s.include?"images/tabien_sp.jpg"
+                  
+                  if saa.parent.to_s.include?"images/tabien_sp.jpg"
                     color = 'white special'
-                  elsif saa.to_s.include?"images/tabien_gold.jpg"
+                  elsif saa.parent.to_s.include?"images/tabien_gold.jpg"
                     color = 'gold'
                   elsif saa.to_s.include?"num_style21"
                     color = 'white'
