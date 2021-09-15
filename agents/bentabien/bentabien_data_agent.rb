@@ -92,7 +92,7 @@ class BentabienDatatBuilderAgent
                 
                 location = doc2.css('table.table.table-borderless.table-striped.pt-det').css('tr:contains("จังหวัด")').css('td')[1].text.strip rescue ""
                 
-                exist_data = BentabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = BentabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"

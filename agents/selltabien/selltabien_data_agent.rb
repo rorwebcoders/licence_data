@@ -61,10 +61,10 @@ class SelltabienDatatBuilderAgent
   def start_processing
     begin
       if $db_connection_established
-        Headless.ly do
+        # Headless.ly do
           urls = ["https://selltabien.com/"]
-            # Selenium::WebDriver::Firefox::Service.driver_path = "C:/GeckoDriver/geckodriver.exe"
-            Selenium::WebDriver::Firefox::Service.driver_path = "/usr/local/bin/geckodriver" # need to specify driver path while running script in cron
+            Selenium::WebDriver::Firefox::Service.driver_path = "C:/GeckoDriver/geckodriver.exe"
+            # Selenium::WebDriver::Firefox::Service.driver_path = "/usr/local/bin/geckodriver" # need to specify driver path while running script in cron
             browser = Watir::Browser.new :firefox
             browser.goto("https://selltabien.com/")
             sleep(5)
@@ -129,7 +129,7 @@ class SelltabienDatatBuilderAgent
             end
            end
           update_status()
-        end
+        # end
       end
 
     rescue Exception => e

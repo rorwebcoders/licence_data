@@ -80,7 +80,7 @@ class BooktabienDatatBuilderAgent
                 license_number = each_data.css('td')[0].text.strip() rescue ""
                 price = each_data.css('td')[1].text.strip() rescue ""
 
-                exist_data = BooktabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = BooktabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"
@@ -147,7 +147,7 @@ class BooktabienDatatBuilderAgent
           if results_current.count == 0
             processing_status = "Removed"
             # byebug
-            BooktabienDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
+            BooktabienDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => '', :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
           end
         end
       end

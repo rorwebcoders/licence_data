@@ -114,7 +114,7 @@ class TabiengraphicDatatBuilderAgent
                   color = ''
                 end
 
-                exist_data = TabiengraphicDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = TabiengraphicDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
             
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"

@@ -80,7 +80,7 @@ class BbsmartcarDatatBuilderAgent
                 license_number = each_data.text.split(location).first.strip
                 price = each_data.css('div.pr').text.strip().split('.').first rescue ""
                 
-                exist_data = BbsmartcarDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = BbsmartcarDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
               
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"

@@ -108,7 +108,7 @@ class TabeanDatatBuilderAgent
                 else
                   color = ''
                 end
-                exist_data = TabeanDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = TabeanDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 # if status.to_s != ''
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"

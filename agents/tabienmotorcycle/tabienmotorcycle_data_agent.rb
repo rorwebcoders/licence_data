@@ -86,7 +86,7 @@ class TabienmotorcycleDatatBuilderAgent
                   status = ''
                 end
                 color = "all motorcycle"    
-                exist_data = TabienmotorcycleDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = TabienmotorcycleDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 if exist_data.count == 0
                   $logger.info "Processing #{license_number}"

@@ -96,7 +96,7 @@ class TabienhengDatatBuilderAgent
 
                 color = doc2.css('div.entry').css('table').css('tr')[3].css('td')[1].text.strip() rescue ""               
 
-                exist_data = TabienhengDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = TabienhengDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
             
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"

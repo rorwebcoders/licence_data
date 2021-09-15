@@ -89,7 +89,7 @@ class MarkettabienDatatBuilderAgent
                 elsif statu == "จองแล้ว"
                   status = 'sold'
                 end
-                exist_data = MarkettabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = MarkettabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 
                 exist_data = MarkettabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
 

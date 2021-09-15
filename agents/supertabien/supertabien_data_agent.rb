@@ -87,14 +87,14 @@ class SupertabienDatatBuilderAgent
                   color = "green special"
                 elsif each_data.to_s.include?"inner-plate ขาวกรอบดำ"
                   color = "white"
-                elsif each_data.to_s.include?'<div class="inner-plate">'
+                elsif ((each_data.to_s.include?'<div class="inner-plate">') || (each_data.to_s.include?'<div class="inner-plate ">'))
                   color = "motorcycle"
                 else
                   color = ""
                 end
                 status = "available"
           
-                exist_data = SupertabienDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = SupertabienDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
@@ -163,7 +163,7 @@ class SupertabienDatatBuilderAgent
           if results_current.count == 0
             processing_status = "Removed"
             # byebug
-            SupertabienDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
+            SupertabienDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => '', :location => location, :date_created => s_current_date, :processing_status => processing_status, :price_status => '0')
           end
         end
       end

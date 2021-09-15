@@ -102,7 +102,7 @@ class TabienddDatatBuilderAgent
                 elsif statu == "สั่งซื้อ"
                   status = "available" 
                 end
-                exist_data = TabienddDetail.where("created_at = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
+                exist_data = TabienddDetail.where("date_created = '#{date_created}' and license_number = '#{license_number}' and url = '#{each_url}'")
                 
                   if exist_data.count == 0
                     $logger.info "Processing #{license_number}"
