@@ -192,7 +192,7 @@ class TabienchillDatatBuilderAgent
           if results_current.count == 0
             processing_status = "Removed"
             # byebug
-            TabienchillDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => license_status, :location => location, :date_created => date_created, :processing_status => processing_status)
+            TabienchillDetail.create(:url => k, :license_group => license_group, :license_number => license_number, :price => price, :license_status => status, :location => location, :date_created => s_current_date, :processing_status => processing_status)
           end
         end
       end
