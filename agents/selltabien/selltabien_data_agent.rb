@@ -67,22 +67,22 @@ class SelltabienDatatBuilderAgent
             Selenium::WebDriver::Firefox::Service.driver_path = "/usr/local/bin/geckodriver" # need to specify driver path while running script in cron
             browser = Watir::Browser.new :firefox
             browser.goto("https://selltabien.com/")
-            sleep(5)
+            sleep(3)
             date_created = ((Date.today)).strftime('%Y-%m-%d')
                     
 
             listings = browser.elements(:xpath => "//div[@class='container tabien_container']")
             listings.each_with_index do |each_data, ind|  
-            sleep(3)
+            sleep(2)
             puts license_group = each_data.h2(:class =>"legend_title").text.strip 
             listings_1 = each_data.ul(:class => 'tabien-list').lis
             
             listings_1.each_with_index do |each_list, ind1|                       
               
                   begin
-                    sleep(2)
+                    sleep(1)
                     if !each_list.html.include?"cover_status"
-                      sleep(2)     
+                      sleep(1)     
                       info = each_list.div(:class=>"click-to-modal").click
                       sleep(1)
                       doc = Nokogiri::HTML(browser.html)
